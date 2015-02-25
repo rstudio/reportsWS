@@ -1,0 +1,42 @@
+---
+title: "What's in a name?"
+author: "Garrett Grolemund"
+date: "February 24, 2015"
+output: html_document
+---
+
+```{r echo=FALSE, message=FALSE}
+library(reportsWS)
+library(forecast)
+library(dygraphs)
+
+# Select name and gender
+name <- "Gillian"    # Always capitalize
+sex <- "F"           # or "M"
+names <- get_babyname(name, sex)
+
+# Create time series and forecast
+nbirths <- ts(names$n, start = 1880)
+mod <- auto.arima(nbirths)
+pred <- forecast(mod, h = 12) # 12 for 2025
+```
+
+Since 1880, `r sum(nbirths, na.rm = TRUE)` children have been named **`r name`**. The graph below breaks this number down by year showing the number of children named `r name` as a time series. 
+
+```{r echo = FALSE, fig.width = 6}
+title <- paste0("Number of children named ", name)
+all <- bind_as_xts(nbirths, pred) 
+
+dygraph(all, main = title) %>%
+  dySeries("x", label = "n children") %>% 
+  dySeries(c("lower", "fitted", "upper"), label = "Predicted") %>% 
+  dyRangeSelector()
+```
+
+We modeled this time series with an `r trim_whitespace(pred$method)` model to predict the number of children that will be given the name `r name` in 2025.
+
+```{r echo = FALSE}
+knitr::kable(data.frame(
+  method = trim_whitespace(pred$method), 
+  predicted_2025 = round(last(pred$mean))), "markdown")
+```

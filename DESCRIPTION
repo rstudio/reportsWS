@@ -1,0 +1,21 @@
+Package: reportsWS
+Type: Package
+Title: Interactive Reports with R Markdown and Shiny Workshop
+Version: 0.1
+Date: 2015-02-24
+Author: Garrett Grolemund
+Maintainer: Garrett Grolemund <garrett@rstudio.com>
+Description: Data sets, functions, and study guides (as R Markdown templates) for the
+    Interactive Reporting with R Markdown and Shiny workshop designed by
+    RStudio, Inc.
+License: CC0
+LazyData: TRUE
+Imports:
+  dplyr,
+  shiny,
+  knitr,
+  babynames,
+  forecast,
+  xts,
+  dygraphs
+

@@ -1,0 +1,74 @@
+---
+title: "What's in a name?"
+author: "Garrett Grolemund"
+date: "February 24, 2015"
+output: html_document
+runtime: shiny
+---
+
+```{r}
+# Exercise 4: Use components of this interactive document to recreate the Shiny wep app in the slides. To do this, you will need to 
+# 1. Open a new file and save it as `app.R`. In the file,
+# 2. define a server object 
+#    a. add the minimum necessary code for a server object
+#    b. describe how to create the reactive expressions and 
+#       rendered text that your app will need from the inputs 
+#       that your app has.
+#    c. save the rendered output in a way that you can access 
+#       from the ui object
+# 3. define a ui object
+#    a. use Shiny functions to layout the app as it appears 
+#       in the slides
+#       i. for this app, use a navbarPage() with two tabPanel()s
+#       ii. every column() must be in a fluidRow()
+#    b. place the app's input widgets into the layout
+#    c. place the app's rendered output into the layout
+# 4. call shinyApp() at the very end of the file
+```
+
+
+```{r echo=FALSE, message=FALSE}
+library(reportsWS)
+library(forecast)
+library(dygraphs)
+library(shiny)
+
+# Select name and gender
+textInput(inputId = "name", label = "Type a name", value = "Garrett")
+radioButtons(inputId = "sex", label = "Choose gender",
+             choices = c("M", "F"), inline = TRUE)
+names <- reactive(get_babyname(input$name, input$sex))
+
+# Create time series and forecast
+nbirths <- reactive(ts(names()$n, start = 1880))
+
+pred <- reactive({
+  mod <- auto.arima(nbirths())
+  forecast(mod, h = 12) # 12 for 2025
+})
+```
+
+Since 1880, `r renderText(sum(nbirths(), na.rm = TRUE))` children have been named **`r renderText(input$name)`**. The graph below breaks this number down by year showing the number of children named `r renderText(input$name)` as a time series. 
+
+```{r echo = FALSE}
+renderDygraph({
+  title <- paste0("Number of children named ", input$name)
+  all <- bind_as_xts(nbirths(), pred()) 
+
+  dygraph(all, main = title) %>%
+    dySeries("x", label = "n children") %>% 
+    dySeries(c("lower", "fitted", "upper"), label = "Predicted") %>% 
+    dyRangeSelector()
+})
+```
+
+We modeled this time series with an `r renderText(trim_whitespace(pred()$method))` model to predict the number of children that will be given the name `r renderText(input$name)` in 2025.
+
+```{r echo = FALSE}
+renderTable({
+  data.frame(
+    method = trim_whitespace(pred()$method), 
+    predicted_2025 = round(last(pred()$mean)))
+})
+```
+
