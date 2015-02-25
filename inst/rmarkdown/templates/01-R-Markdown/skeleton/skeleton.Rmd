@@ -82,7 +82,7 @@ The sections below describe each framework.
 
 ### Markdown Style Guide
 ***
-**Exercise 1** - _Format each line below to display what the line describes._  
+**Your Turn 1** - _Format each line below to display what the line describes._  
 
 ***
 
@@ -158,7 +158,7 @@ As a result, the markdown snippet to the left will look like this when rendered 
 ### knitr chunk options
 
 ***
-**Exercise 2** - Describe what each option does below, then add the options to the chunks they describe.  
+**Your Turn 2** - Describe what each option does below, then add the options to the chunks they describe.  
 
 ***
 
@@ -235,7 +235,7 @@ output: html_document
 The `output:` key determines which type of file to build when you call `rmarkdown::render()`. _Note: you do not need to specify `output:` if you render your file with the RStudio IDE knit button._
 
 ***
-**Exercise 3** - _Complete the list of output formats below. Then re-render this document as a pdf with a table of contents (toc) and numbered sections.  
+**Your turn 3** - _Complete the list of output formats below. Then re-render this document as a pdf with a table of contents (toc) and numbered sections.  
 
 ***
 
