@@ -1,6 +1,6 @@
 #' Retrieve a name from the babynames data set
 #'
-#' The \link[babynames]{\code{babynames}} data set provides information
+#' The \code{\link[babynames]{babynames}} data set provides information
 #' on names collected by the United States Social Security
 #' Administration. The data describes how many children were given each
 #' name for each year since 1880, as well as the proportion of children
