@@ -18,7 +18,7 @@ server <- function(input, output){
   output$sum <- renderText(sum(nbirths(), na.rm = TRUE))
   output$sum_text <- renderText(paste("children have had the name",
     input$name, "since 1880."))
-  output$prediction <- renderText(round(last(pred()$mean)))
+  output$prediction <- renderText(round(xts::last(pred()$mean)))
   output$prediction_text <- renderText(paste(
     "children will have the name in 2025 according to an",
     trim_whitespace(pred()$method), "model."))

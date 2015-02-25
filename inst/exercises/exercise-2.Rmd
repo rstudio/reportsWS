@@ -44,6 +44,6 @@ We modeled this time series with an `r trim_whitespace(pred$method)` model to pr
 ```{r}
 knitr::kable(data.frame(
   method = trim_whitespace(pred$method), 
-  predicted_2025 = round(last(pred$mean))), "markdown")
+  predicted_2025 = round(xts::last(pred$mean))), "markdown")
 ```
 

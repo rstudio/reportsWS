@@ -54,5 +54,5 @@ We modeled this time series with an `r trim_whitespace(pred$method)` model to pr
 ```{r echo = FALSE}
 data.frame(
   method = trim_whitespace(pred$method), 
-  predicted_2025 = round(last(pred$mean)))
+  predicted_2025 = round(xts::last(pred$mean)))
 ```
