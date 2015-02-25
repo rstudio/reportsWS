@@ -1,4 +1,5 @@
-# Exercise 1: Use the code below to make an R Markdown report, like the one on the slides. Try rendering the report in different formats and with different names. Does the report update seamlessly when you change the name and sex?
+# Exercise 1: Use the code below to make an R Markdown report like the one on the slides. Try rendering the report in different formats and with different names. Does the report update seamlessly when you change the name and sex?
+# Publish the report on rPubs.com when you are finished.
 
 
 library(reportsWS)

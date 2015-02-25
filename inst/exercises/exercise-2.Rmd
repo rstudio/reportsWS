@@ -41,7 +41,7 @@ plot(all, main = title)
 
 We modeled this time series with an `r trim_whitespace(pred$method)` model to predict the number of children that will be given the name `r name` in 2025.
 
-```{r}
+```{r echo = FALSE}
 knitr::kable(data.frame(
   method = trim_whitespace(pred$method), 
   predicted_2025 = round(xts::last(pred$mean))), "markdown")
