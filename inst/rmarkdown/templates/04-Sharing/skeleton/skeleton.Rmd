@@ -6,6 +6,7 @@ output:
   html_document:
     toc: true
     number_sections: true
+runtime: shiny
 ---
 
 ***
@@ -144,12 +145,162 @@ shinyapps:terminateApp("<filepath to app directory>")
 ```
 
 ## Build a server
+
+RStudio makes two products to help you build your own server to host, maintain, and monitor your Shiny apps.
+
 ### Shiny Server
+
+[Shiny Server](http://www.rstudio.com/products/shiny/shiny-server/) is a free and open source software for building servers to hos Shiny apps on a linux box.
+
 ### Shiny Server Pro
+
+[Shiny Server Pro](http://www.rstudio.com/products/shiny-server-pro/) is a professional version of Shiny Server, tuned for commerical use. It provides enhanced:
+
+* **security** with LDAP, ActiveDirectory, GoogleAuth, PAM, SSL, and more.
+* **performance** with multiple tuning parameters
+* **administrative control** to monitor and manage resource use
+* **support** from RStudio, Inc.
+
+[Try a free 45 Day evaluation](http://www.rstudio.com/products/shiny-server-pro/) of Shiny Server Pro.
+
 ### Learn more
+
+To learn more about building your own server with Shiny Server or Shiny Server Pro, visit the [Shiny Server Admin Guide](http://rstudio.github.io/shiny-server/latest/).
+
 ## Performance
-### Execution
-### Share data across sections
+
+Sharing an app with multiple users tests your code in new ways.
+
+To keep your app fast, ensure that the app does not re-run code more often than it needs to. Apps run code on three occasions:
+
+1. **When a rendered output is invalidated** (becomes out of date). 
+    + Shiny will rerun all of the code in a `render*()` call whenever it needs to rebuild the rendered object. 
+    + This code may be rerun hundreds of times a minute. 
+    + Do not place any code in a `render*()` call that does not need to be rerun each time the object becomes out of date.
+2. **When a new user vists your app**
+    + Shiny will run the server function of your app each time a new user visits your app or refreshes their browser.
+    + This code may be rerun many times if your app is hosted online.
+    + Limit your server function to code that needs to be run once for each new user (for example, code that creates a fresh set of objects for the user).
+3. **When you first launch your app**
+    + Shiny will run all of the code in `app.R` or `server.R` when you first launch the app, including code that comes before you define the server function.
+    + This is a good place to put code that only needs to be run once to set up your computer/server (for example, `library()`, `source()`, and `load()` commands).
+
 # Embed in R
-## shinyAppDir()
-## stopApp()
+
+Share your apps through the R command line by packaging your apps in a package or function.
+
+## In a package
+
+To add an app to a package
+
+1. Save the app directory in the package's `inst` directory
+2. Write a function that calls the app with `system.file()` and `runApp()` 
+    + `system.file()` returns the filepath to a directory or file in an R package.
+    + `runApp()` launches an app
+    + An example function:
+    
+```{r eval = FALSE}
+myApp <- function() {
+  require(shiny)
+  runApp(system.file("<app directory>", package = "<package name>"))
+}
+```
+
+## In a function
+
+Embed single file apps in a function by having the function return the result of `shinyApp()`, e.g.
+
+```{r}
+myShinyFun <- function() {
+  serv <- function(input, output) {
+    output$hist <- renderPlot({
+      hist(faithful$eruptions, breaks = input$n_breaks,
+        probability = TRUE, xlab = "Duration (minutes)", 
+        main = "Geyser eruption duration")
+    })
+  }
+  ui <- fluidPage(
+    sidebarLayout(
+      sidebarPanel(
+        sliderInput("n_breaks", label = "Number of bins:", 
+          min = 10, max = 50, value = 25)
+      ),
+      mainPanel(plotOutput("hist"))
+    )
+  )
+  shinyApp(server = serv, ui = ui, options = list(height = 600))
+}
+
+myShinyFun()
+```
+
+### Parameterize
+
+Parameterize apps by passing function arguments into the app:
+
+```{r}
+myShinyHist <- function(data = 1:100) {
+  serv <- function(input, output) {
+    output$hist <- renderPlot({
+      hist(data, breaks = input$n_breaks,
+        probability = TRUE, xlab = "Duration (minutes)", 
+        main = "Geyser eruption duration")
+    })
+  }
+  ui <- fluidPage(
+    sidebarLayout(
+      sidebarPanel(
+        sliderInput("n_breaks", label = "Number of bins:", 
+          min = 10, max = 50, value = 25)
+      ),
+      mainPanel(plotOutput("hist"))
+    )
+  )
+  shinyApp(server = serv, ui = ui, options = list(height = 600))
+}
+
+myShinyHist(data = rnorm(1000))
+```
+
+### stopApp()
+
+Use `stopApp()` to close a shiny app and return a value to the frame that called `runApp()`.
+
+`stopApp()` lets you launch a Shiny app to collect a value.
+
+To use `stopApp()`,
+
+1. Put an `actionButton()` in the ui that a user can click to stop the app
+2. Use `observe()` to run `stopApp()` when the button value != 0
+3. Give `stopApp()` a value to return
+    + The value will be returned as a non-reactive value
+    + `stopApp()` isolates the value (shanges in the value will not trigger the `observe()` chunk to run
+4. Wrap `shinyApp()` with `runApp()` to return the value to the function.
+    + Otherwise value will be returned to the invisible `print()` call on `shinyApp()` and lost.
+
+_Note: run this example in its own script to avoid closing the study guide._
+```{r eval = FALSE}
+trimmedMean <- function(vec) {
+  serv <- function(input, output) {
+    tmean <- reactive(mean(vec, trim = input$trim))
+    observe(if (input$stop > 0) stopApp(tmean()))
+    output$mean <- renderText(tmean())
+    output$hist <- renderPlot(hist(vec))
+  }
+  ui <- fluidPage(
+    sidebarLayout(
+      sidebarPanel(
+        sliderInput("trim", label = "Trim mean by", 
+          min = 0, max = 0.5, value = 0, step = 0.01),
+        h1(textOutput("mean")),
+        actionButton("stop", "Return Value")
+      ),
+      mainPanel(plotOutput("hist"))
+    )
+  )
+  runApp(shinyApp(server = serv, ui = ui))
+}
+
+tm <- trimmedMean(vec = rnorm(1000))
+tm
+```
