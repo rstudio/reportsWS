@@ -75,7 +75,7 @@ To use shinyapps.io,
 
 1. Install
     + (for Windows users only) [RTools](http://cran.r-project.org/bin/windows/Rtools/) for building packages
-    + (for Mac users only) [Command Line Tools for XCode](http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/) for building packages
+    + (for Mac users only) [Command Line Tools for XCode](http://railsapps.github.io/xcode-command-line-tools.html) for building packages
     + (for Linux users only) [GCC](https://gcc.gnu.org/wiki/InstallingGCC) for building packages
 2. Install the `devtools` package from cran 
 
