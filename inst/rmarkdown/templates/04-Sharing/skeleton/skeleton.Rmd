@@ -9,6 +9,10 @@ output:
 runtime: shiny
 ---
 
+```{r echo = FALSE}
+library(shiny)
+```
+
 ***
 
 These notes explain how to share Shiny web apps and interactive documents. The notes accompany RStudio's workshop, [Interactive Reporting with R Markdown and Shiny](http://shiny-dc.eventbrite.com). For more details on using Shiny see <http://shiny.rstudio.com>.
@@ -238,11 +242,23 @@ myShinyFun()
 
 Parameterize apps by passing function arguments into the app:
 
-```{r}
-myShinyHist <- function(data = 1:100) {
+***
+
+**Your Turn** - Parameterize the function below.
+
+1. Define an argument named `vec` for the function.
+    + `vec` hould take a vector of numbers
+2. Modify the histogram call so that it plots a histogram of `vec` instead of `faithful$eruptions`
+3. Run the function definition at the command line. Then try running
+    + `myShinyFun(vec = rnorm(500))`
+    + `myShinyFun(vec = faithful$eruptions)`
+    + `myShinyFun(vec = iris$Sepal.Length)`
+
+```{r eval = FALSE}
+myShinyFun <- function() {
   serv <- function(input, output) {
     output$hist <- renderPlot({
-      hist(data, breaks = input$n_breaks,
+      hist(faithful$eruptions, breaks = input$n_breaks,
         probability = TRUE, xlab = "Duration (minutes)", 
         main = "Geyser eruption duration")
     })
@@ -258,9 +274,9 @@ myShinyHist <- function(data = 1:100) {
   )
   shinyApp(server = serv, ui = ui, options = list(height = 600))
 }
-
-myShinyHist(data = rnorm(1000))
 ```
+
+***
 
 ### stopApp()
 

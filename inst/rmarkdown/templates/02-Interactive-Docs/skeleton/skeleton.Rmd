@@ -108,8 +108,6 @@ Each `*Input` function also takes additional arguments that are related to the t
 2. Then modify the code chunks below to return an example of each of Shiny's `*Input` widgets. You will need to add the appropriate arguments to each function. 
 3. After you finish each function, remove `eval = FALSE` and render the document to see the function's output.
 
-***
-
 ```{r eval = FALSE}
 actionButton()
 ```
@@ -119,26 +117,26 @@ actionLink()
 ```
 
 ```{r eval = FALSE}
-checkboxInput()
 # value - TRUE or FALSE. Should the checkbox begin checked?
+checkboxInput()
 ```
 
 ```{r eval = FALSE}
-checkboxGroupInput()
 # choices - Character vector. List of values to show checkboxes for.
 # selected - Character vector. List of checkboxes to begin checked.
 # inline - TRUE or FALSE. Should the boxes be shown inline (vs. above one another)?
+checkboxGroupInput()
 ```
 
 ```{r eval = FALSE}
-dateInput()
 # value - NULL, a Date object, or a string in yyy-mm-dd format. The starting date.
+dateInput()
 ```
 
 ```{r eval = FALSE}
-dateRangeInput()
 # start - NULL, a Date object, or a string in yyy-mm-dd format. The initial start date.
 # end - NULL, a Date object, or a string in yyy-mm-dd format. The initial end date.
+dateRangeInput()
 ```
 
 ```{r eval = FALSE}
@@ -146,52 +144,47 @@ fileInput()
 ```
 
 ```{r eval = FALSE}
-numericInput()
 # value - Numeric. Initial value
 # min - Numeric. Minimum value allowed.
 # max - Numeric. Maximum value allowed.
 # step - Numeric. Interval to use when stepping between min and max.
+numericInput()
 ```
 
 ```{r eval = FALSE}
-passwordInput()
 # value - Character string. Initial value
+passwordInput()
 ```
 
 ```{r eval = FALSE}
-radioButtons()
 # choices - Character vector. List of values to select from.
 # selected - Character string. The initial selected value.
 # inline - TRUE or FALSE. Should the buttons be shown inline (vs. above one another)?
+radioButtons()
 ```
 
 ```{r eval = FALSE}
+# choices - Character vector. List of values to select from.
+# selected - Character string. The initial selected value.
+# multiple - TRUE or FALSE. Can user select multiple items?
 selectInput()
-# choices - Character vector. List of values to select from.
-# selected - Character string. The initial selected value.
-# multiple - TRUE or FALSE. Can user select multiple items?
 ```
 
 ```{r eval = FALSE}
-selectizeInput()
-# choices - Character vector. List of values to select from.
-# selected - Character string. The initial selected value.
-# multiple - TRUE or FALSE. Can user select multiple items?
-```
-
-```{r eval = FALSE}
-sliderInput()
 # value - Numeric. Initial value
 # min - Numeric. Minimum value allowed.
 # max - Numeric. Maximum value allowed.
 # step - Numeric. Interval to use when stepping between min and max.
 # animate - TRUE or FALSE. Show simple animation controls with slider?
+sliderInput()
 ```
 
 ```{r eval = FALSE}
-textInput()
 # value - Character string. Initial value
+textInput()
 ```
+
+***
 
 ## Reactive Values
 
@@ -270,8 +263,6 @@ R Markdown will display the output alongside the `render*` function in the rende
 
 Render the document when you are finished and check that the text updates as you would expect.
 
-***
-
 ```{r}
 # create a slider input that selects a number
 # create a reactive expression that computes the factorial of the slider number
@@ -285,6 +276,8 @@ Render the document when you are finished and check that the text updates as you
 ```
 
 _Note: you can put Shny inputs and outputs in separate code blocks. With R Markdown, the objects that you create in one code block are available in later code blocks._
+
+***
 
 #### When should you use a reactive expression?
 
@@ -345,24 +338,26 @@ The result will not update when the reactive value changes. The output of `isola
 
 1. Remove `eval = FALSE` from the code chunk below.
 
-2. Use `isolate()` to prevent the histogram from updating when the slider changes. Wrap as little code in `isolate()` as possible. Check that your method worked.
+2. Use `isolate()` to prevent the histogram from updating when the selectbox changes. Call `isolate()` twice, but wrap as little code in `isolate()` as possible. Check that your method worked.
 
-3. Add an `actionButton()` to the code chunk, and have the `renderPlot()` code call the action button. The code does not need to do anything particular with the button's value, it can just look it up and then move on to the histogram.
+3. Add an `actionButton()` to the code chunk. Be sure to use an `inputId` that you have not used earlier in this document.
 
-4. Re-render the document. Change the slider. What happens to the plot? Click the action button. What happens to the plot?
+4. Have the `renderPlot()` code call the action button. The code does not need to do anything particular with the button's value, it can just look it up and then move on to the histogram.
 
-***
+5. Re-render the document. Change the select box. What happens to the plot? Click the action button. What happens to the plot?
 
-```{r eval = FALSE}
-sliderInput("n_breaks", label = "Number of bins:", min = 10, max = 50, value = 25)
+```{r echo=FALSE, eval = FALSE}
+selectInput("iriscol", label = "Select a variable", choices = names(iris))
+actionButton("go", "Go!")
 
 renderPlot({
-  
-  hist(faithful$eruptions, breaks = input$n_breaks,
-       probability = TRUE, xlab = "Duration (minutes)", 
-       main = "Geyser eruption duration")
+
+  hist(iris[[input$iriscol]], probability = TRUE, 
+       xlab = input$iriscol)
 })
 ```
+
+***
 
 # Tips
 

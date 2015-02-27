@@ -177,9 +177,7 @@ You can customize `knitr` output in several ways. Here are the most popular.
 ## Your Turn 2
 
 ***
-**Your Turn 2** - Describe what each option does below, then add the options to the chunks they describe.  
-
-***
+**Your Turn 2** - Describe what each option does below, then add the options to the chunks they describe. Render the study guide before and after you make your changes and compare the results.
 
 * `eval = FALSE` - DESCRIPTION  
    This is a very handy way to add example code to your report.
@@ -241,6 +239,8 @@ names(knitr::knit_engines$get())
 
 Learn more about formatting the output of code chunks at the [rmarkdown](http://rmarkdown.rstudio.com/authoring_rcodechunks.html) and [knitr](http://yihui.name/knitr/options) websites.
 
+***
+
 ## Logistics
 
 `knitr` will run the code in your document in a fresh R session. As a result, you will need to call `library()` within your document to load any packages that the code uses.
@@ -272,7 +272,6 @@ The `output:` key determines which type of file to build when you call `rmarkdow
 ***
 **Your turn 3** - _Complete the list of output formats below. Then re-render this document as a pdf with a table of contents (toc) and numbered sections.  
 
-***
 
 R Markdown comes with seven basic output formats:
 
@@ -283,6 +282,8 @@ R Markdown comes with seven basic output formats:
 5. `EXERCISE`, which will create EXERCISE  
 6. `EXERCISE`, which will create EXERCISE  
 7. `EXERCISE`, which will create EXERCISE  
+
+***
 
 You can override the YAML output value by manually selecting an output option from the knit button's drop down menu in the RStudio IDE. 
 

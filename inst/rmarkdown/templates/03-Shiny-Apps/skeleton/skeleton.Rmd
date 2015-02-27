@@ -140,7 +140,8 @@ shinyApp(server = serv, ui = ui)
 3. Insert a rendered plot into the main panel
 4. Write a server function that re-renders a histogram each time the action button is pressed
     + Note: the value of an action button increases by one each time it is pressed.
-5. Assemble the components togther with `shinyApp()`
+5. Ensure that the function saves the plot as an element of `output`
+6. Assemble the components togther with `shinyApp()`
 
 ```{r}
     hist(rnorm(500), breaks = 30, col = "grey", border = "white",
@@ -327,7 +328,12 @@ shinyApp(server = serv, ui = ui)
 ![](rmd-navbar.png)
 
 ***
-**Your Turn 2** - Modify the ui of the app below so it resembles the app pictured above. Then remove `eval = FALSE` and rerender the Study Guide.
+**Your Turn 2** - Notice that the app pictured above has a navigation bar at the top of the page with three different tabs. The first name on the navigation bar is "Random Generator". The remaining names are "Normal data", "Uniform data", "Chi Squared data".
+
+1. Modify the ui of the app below so it resembles the app pictured above. 
+2. Then remove `eval = FALSE` and rerender the Study Guide.
+
+_Note: the app won't look exactly the same while embedded in the Study Guide. If you prefer, launch the app from its own R Script._
 
 ```{r eval = FALSE}
 serv <- function(input, output) {
@@ -404,6 +410,13 @@ tags$img(src = "www.rstudio.com", width = "100px", height = "100px")
 ## <img src="www.rstudio.com" width="100px" height="100px"/>
 ```
 
+A complete list of tags
+
+```{r}
+names(tags)
+```
+
+
 The most common tags have a helper function, which you can use to avoid typing `tags$`.
 
 function  | creates
@@ -419,14 +432,9 @@ function  | creates
 `pre()` | Monospaced text
 `span()` | a group of inline elements
 `strong()` | bold text
+`tags$block` | A block quote
 `tags$img` | An image
 `tags$ol()`, `tags$ul()`, `tags$li()` | orderd list, unordered list, list item
-
-A complete list of tags
-
-```{r}
-names(tags)
-```
 
 ### HTML Style Guide
 
@@ -453,18 +461,13 @@ ui <- fluidPage(
   fluidRow("A hyperlink (to href='shiny.rstudio.com')"),  
   fluidRow("A horizontal rule"),  
 
-  fluidRow("An unordered list:  
-Item 1  
-Item 2  
-sub-item 1  
-sub-item 2"),  
+  fluidRow("An unordered list:," "Item 1", "Item 2", 
+           "sub-item 1", "sub-item 2"),  
 
-  fluidRow("An ordered list:  
-Item 1  
-Item 2  
-sub-item 1  
-sub-item 2")
+  fluidRow("An ordered list:," "Item 1", "Item 2", 
+           "sub-item 1", "sub-item 2")
 )
+
 shinyApp(server = function(input, output){}, ui = ui)
 ```
 
