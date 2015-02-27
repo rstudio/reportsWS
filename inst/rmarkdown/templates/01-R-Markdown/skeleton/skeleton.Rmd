@@ -1,88 +1,101 @@
 ---
-title: "R Markdown Study Guide"
+title: "Study Guide 1 - R Markdown"
 author: "Anonymous"
 date: "March 2015"
 output: html_document
 ---
 
-These notes explain how to write reports with R Markdown. The notes accompany RStudio's workshop, [Interactive Reporting with R Markdown and Shiny](http://shiny-dc.eventbrite.com). 
+***
 
-The companion study guide, _Interactive Documents Study Guide_, will show you how to turn an R Markdown report into an interactive document with Shiny components. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+These notes explain how to write reports with R Markdown. The notes accompany RStudio's workshop, [Interactive Reporting with R Markdown and Shiny](http://shiny-dc.eventbrite.com). For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
 
-# Background
+# Overview
 
-This is an R Markdown document. It is written in markdown, a simple formatting syntax for authoring HTML, PDF, and MS Word documents. The document contains R code that has been embedded in lines of text like this:
+This is an R Markdown document. It is written in markdown, a simple formatting syntax for authoring HTML, PDF, and MS Word documents, as well as slideshows. The document contains R code that has been embedded in lines of text like this:
 
 This document was rendered on `r Sys.Date()` with R version `r getRversion()`.
 
-...as well as R code that has been embedded in code chunks like the one below. 
+It also contains code embedded in code chunks like the one below. 
 
-```{r}
+```{r fig.height = 4, fig.width = 5}
 plot(cars)
 ```
 
-When you click the **Knit** button, R Markdown generates a document that includes both your content as well as the output of any R code chunks that you've embedded in your document. You can use this system to document your work in R, or to generate dynamic reports built with R code. 
+When you click the **Knit** button, R Markdown generates a document that includes both your content as well as the output of any R code chunks embedded in your document. You can use this system to document your work in R, or to generate reports built from R code.
+
+R Markdown is heavily [integrated into the RStudio IDE](http://shiny.rstudio.com/articlesrmd-integration.html).
 
 # Getting started
 
-R Markdown files are designed to be used with the `rmarkdown` package. `rmarkdown` comes installed with the RStudio IDE, but you can acquire your own copy of `rmarkdown` from [github](www.github.com) with the command
+To begin using R Markdown, download
 
-```{r eval=FALSE}
-devtools:install_github("rmarkdown", "rstudio")
-```
+1. R at <http://cran.r-project.org>
+2. RStudio IDE at <http://www.rstudio.com/download>
+3. LaTex at <http://www.latex-project.org/ftp.html>
 
-These notes will assume that you are using the RStudio IDE.
+Beware that Tex is a large download. 
 
-To create an R Markdown report, open a new _.Rmd_ file by clicking _File > New File > R Markdown..._ in the RStudio toolbar. Then select "Document" and "HTML" in the wizard that appears. RStudio will open a new _.Rmd_ file that contains a self-explanatory template.
+## Open
+
+To open a new R Markdown report, 
+
+1. click _File > New File > R Markdown..._ in the RStudio toolbar. 
+2. Then select "Document" and "HTML" in the wizard that appears. 
+
+RStudio will open a new _.Rmd_ file that contains a self-explanatory template.
 
 ![](rmd-file.png)
 
-_Note: you can also create an R Markdown document by opening a plain text file and saving it with the extension .Rmd. The RStudio IDE enables several helpful buttons when you save the file with the_.Rmd_extension._
+## Render 
 
-To render an R Markdown file, click the knit button that appears above the file in the RStudio IDE. 
+When you render a _.Rmd_ file, R Markdown
+
+1. Runs each chunk of R code in the document and embeds the output into the report. 
+2. Recreates the contents of the _.Rmd_ file in a new file format. R Markdown will save the new file on your computer alongside the original _.Rmd_ file. 
+
+You can render an R Markdown file in two ways.
+
+### With the RStudio IDE
+
+To render an R Markdown file, click the knit button that appears above the file in the RStudio IDE. RStudio will render the file and open a preview of the output document.
 
 ![](rmd-render.png)
 
-R Markdown will knit the R code in the document and save a version of the finished file in the desired output format alongside the original _.Rmd_ file on your computer. RStudio will open a preview of the output document.
+If you wish to create a different format of output, select the triangle next to the knit button to open a drop down menu. Then select the desired format.
 
-If you wish to create a different format of output, select the triangle next to the knit button to open a dropdown menu. Then select the desired format.
+### At the command line
 
-When you render a _.Rmd_ file, R Markdown transforms it in two ways.
+To render an R Markdown file at the command line, run 
 
-1. **knit** - The `rmarkdown` package calls the `knitr` package, which runs each chunk of R code in your document and appends the results of the code to the document. This workflow saves time and facilitates reproducible reports. 
+```{r eval = FALSE}
+rmarkdown::render("<filepath>")
+```
 
-    Consider how authors typically include graphs (or tables, or numbers) in a report. The author makes the graph, saves it as a file, and then copy and pastes it into the final report. This process relies on manual labor. If the data changes, the author must repeat the entire process to update the graph.
+Give `render()` the file path from your working directory to the _.Rmd_ file that you wish to render. 
 
-    In the R Markdown paradigm, each report contains the code it needs to make its own graphs, tables, numbers, etc. You can automatically update the report by re-knitting it.
 
-2. **convert** - The `rmarkdown` package uses the [pandoc](http://johnmacfarlane.net/pandoc/) program to build a new file format from the _.Rmd_ file. R Markdown can build markdown, HTML, PDF, or Microsoft Word files from a _.Rmd_ file. It can also build HTML5 or PDF slideshows. Each of these outputs will contain the text, code results, and formatting contained in your original _.Rmd_ file.
+## Publish
 
-    Conversion lets you do your original work in markdown, which is very easy to use. You can include R code to knit, and you can share your document in a variety of formats.
-    
-    _Note: RStudio does not build PDF documents from scratch. You will need to have a distribution of Latex installed on your computer to make PDFs. R Markdown can build Microsoft Word documents from scratch, but you will want Microsoft Word (or a similar program) installed to open these files._
+To publish an R Markdown file to the web, click the "Publish" icon in the RStudio IDE preview window. 
 
-In these notes, I will use the term _render_ to refer to the two step process of knitting and converting an R Markdown file.
+![](rmd-publish.png)
 
-You can manually render an R Markdown file with `rmarkdown::render()`. In practice, you do not need to call `rmarkdown::render()`. You can use the knit button in the RStudio IDE to render your report. R Markdown is heavily [integrated into the RStudio IDE](http://shiny.rstudio.com/articlesrmd-integration.html).
+Your document will be published at its own URL hosted at [rPubs.com](http://rpubs.com/), a free web hosting service for R Markdown documents. You can share the URL with friends where they can comment on the document.
 
-# Details
+Your document will also appear on the front page of [rPubs.com](http://rpubs.com/) where it will gradually be displaced by more recent documents.
 
-R Markdown reports rely on three frameworks
+# Markdown
 
-1. markdown for formatted text
-2. `knitr` for embedded R code
-3. YAML for conversion parameters
+**Markdown** is a markup language the R Markdown uses to format text. To write in [markdown](http://daringfireball.net/projects/markdown/basics), you insert unobtrusive formatting signals into plain text. 
 
-The sections below describe each framework.
+The RStudio IDE
 
-## Markdown for formatted text
+## Markdown Style Guide
 
-.Rmd files are meant to contain text written in [markdown](http://daringfireball.net/projects/markdown/basics). Markdown is a set of conventions for formatting plain text. The conventions of markdown are very unobtrusive, which make Markdown files easy to read. 
-
-### Markdown Style Guide
+## Your Turn 1
 ***
-**Your Turn 1** - _Format each line below to display what the line describes._  
+**Your Turn 1** - _Format each line below with markdown to display what the line describes. Then re-render the study guide._  
 
 ***
 
@@ -133,45 +146,49 @@ Cell 3 Cell 4
 
 You can learn about more of markdown's conventions in the _Markdown Quick Reference_ guide, which comes with the RStudio IDE.
 
-To access the guide, open a _.md_ or _.Rmd_ file in RStudio. Then click the question mark icon that appears above the document and select "Markdown Quick Reference". RStudio will open the _Markdown Quick Reference_ guide in the Help pane.
+To access the guide, open a _.md_ or _.Rmd_ file in RStudio. Then click the ? icon that appears above the document and select "Markdown Quick Reference". RStudio will open the _Markdown Quick Reference_ guide in the Help pane.
 
 ![](rmd-ref.png)
 
-## knitr for embedded R code
+# knitr
 
-The `knitr` package extends the basic markdown syntax to include chunks of executable R code. When you render the report, `knitr` will run the code and add the results to the output file. You can have the output display just the code, just the results, or both.
+`knitr` is an R package that embeds code and its results into text documents. It provides a way to weave code---and its results---into R Markdown documents.
+
+## Inline code
 
 To embed a piece of R code in a line of text, surround the code with a pair of backticks and the letter `r`, like this
 
 ![](rmd-inline.png)
 
-`knitr` will replace the inline code with its result in your final document (inline code is _always_ replaced by its result). The result will appear as if it were part of the original text.
+When you render the document, `knitr` will replace the inline code with its result in your final document (inline code is _always_ replaced by its result). The result will appear as if it were part of the original text.
+
+## Code chunks
 
 To embed a chunk of R code into your report, surround the code with two lines that each contain three backticks. After the first set of backticks, include `{r}`, which alerts `knitr` that you have included a chunk of R code. 
 
-When you render your document, `knitr` will run the code and append the results to the code chunk. `knitr` will provide formatting and syntax highlighting to both the code and its results (where appropriate).
-
-As a result, the markdown snippet to the left will look like this when rendered (to HTML).
-
 ![](rmd-code.png)
 
-### knitr chunk options
+When you render your document, `knitr` will run the code and append the results to the code chunk. 
+
+## Chunk options
+
+You can customize `knitr` output in several ways. Here are the most popular.
+
+## Your Turn 2
 
 ***
 **Your Turn 2** - Describe what each option does below, then add the options to the chunks they describe.  
 
 ***
 
-You can customize knitr output in several ways. Here are the most popular.
-
-* `eval = FALSE` -  
+* `eval = FALSE` - DESCRIPTION  
    This is a very handy way to add example code to your report.
 
 ```{r}
 colMeans(cars)
 ```
 
-* `results = 'hide'` -  
+* `results = 'hide'` - DESCRIPTION  
    This is convenient if you wish to hide the results, but still use them in later code chunks.
 
 ```{r}
@@ -182,25 +199,30 @@ carmeans <- colMeans(cars)
 carmeans
 ```
 
-* `echo = FALSE` -  
+* `echo = FALSE` - DESCRIPTION  
    This is a handy for adding plots to a report, since you usually do not want to see the code that generates the plot.
 
 ```{r}
 plot(cars)
 ```
 
-* `fig.width = 5, fig.height = 4` -  
+* `fig.width = 5, fig.height = 4` - DESCRIPTION   
    When adding multiple arguments to a code chunk, separate the arguments by a comma.
 
 ```{r}
 plot(cars)
 ```
 
-* `message = FALSE, warning = FALSE` -  
+* `message = FALSE, warning = FALSE` - DESCRIPTION   
 
 ```{r}
 message("This is a message.")
+1 + 1
+```
+
+```{r}
 warning("This is a warning!")
+1 + 1
 ```
 
 * `engine = 'python'` - To embed non-R code into a code chunk, add the option `engine = ` to the chunk. For example, this code chunk would evaluate python code (note that you will need to remove `eval=FALSE` and have a python compiler installed on your computer for this to work).
@@ -211,17 +233,26 @@ print(x)
 print(x.split(' '))
 ```
 
-R Markdown recognizes the following languages, and you can create your own [language engine](http://yihui.name/knitr/demo/engines/) if you'd like to use a language not listed here.
+R Markdown recognizes the following languages, and you can write your own [language engine](http://yihui.name/knitr/demo/engines/) if you'd like to use a language not listed here.
 
 ```{r echo=FALSE}
 names(knitr::knit_engines$get())
 ```
 
-You can learn more about formatting the output of code chunks at the [rmarkdown](http://rmarkdown.rstudio.com/authoring_rcodechunks.html) and [knitr](http://yihui.name/knitr/options) websites.
+Learn more about formatting the output of code chunks at the [rmarkdown](http://rmarkdown.rstudio.com/authoring_rcodechunks.html) and [knitr](http://yihui.name/knitr/options) websites.
 
-## YAML for render parameters
+## Logistics
 
-You can use a YAML header to control how `rmarkdown` renders your _.Rmd_ file. A YAML header is a section of `key: value` pairs surrounded by `---` marks, like below
+`knitr` will run the code in your document in a fresh R session. As a result, you will need to call `library()` within your document to load any packages that the code uses.
+
+`knitr` runs each code chunk in the same R session. As a result each, chunk will have access to the objects created by previous chunks.
+
+
+# YAML
+
+Place a YAML header at the top of your _.Rmd_ file to customize the render process.
+
+A YAML header is a section of `key: value` pairs surrounded by `---` marks, like below
 
 ```
 ---
@@ -232,7 +263,11 @@ output: html_document
 ---
 ```
 
-The `output:` key determines which type of file to build when you call `rmarkdown::render()`. _Note: you do not need to specify `output:` if you render your file with the RStudio IDE knit button._
+## output:
+
+The `output:` key determines which type of file to build when you call `rmarkdown::render()`.
+
+## Your Turn 3
 
 ***
 **Your turn 3** - _Complete the list of output formats below. Then re-render this document as a pdf with a table of contents (toc) and numbered sections.  
@@ -249,23 +284,21 @@ R Markdown comes with seven basic output formats:
 6. `EXERCISE`, which will create EXERCISE  
 7. `EXERCISE`, which will create EXERCISE  
 
-You can override the YAML output value by manually selecting an output option from the knit button's drop down menu in the RStudio IDE. You can also override the YAML option by calling an `output_format` argument when rendering at the command line with `rmarkdown::render()`, like this
+You can override the YAML output value by manually selecting an output option from the knit button's drop down menu in the RStudio IDE. 
+
+You can also override the YAML option by calling an `output_format` argument when rendering at the command line with `rmarkdown::render()`, like this
 
 ```{r eval = FALSE}
 rmarkdown::render("my-doc.Rmd", output_format = "pdf_document")
 ```
 
-You can render a _.Rmd_ file into multiple outputs simultaneaously by passing a vector of output names to `output_format`, e.g.
+You can render a _.Rmd_ file into multiple outputs simultaneaously by passing a vector of output names to `output_format`, like this
 
 ```{r eval = FALSE}
 rmarkdown::render("my-doc.Rmd", output_format = c("html_document", "pdf_document"))
 ```
 
-You can further customize each output format with options specific to that format. To see the list of options that a format recognizes (along with the default options of the format) refer to the format as a function with `args`, i.e.
-
-```{r}
-args(rmarkdown::html_document)
-```
+### output: options
 
 To set an output option, use the following format in your YAML header
 
@@ -281,12 +314,17 @@ output:
 ---
 ```
 
-Visit [rmarkdown.rstudio.com](http://rmarkdown.rstudio.com/html_document_format.html) to learn about more YAML options that control the render process.
+Use `args` to see which output options a format recognizes:
 
-# Publishing
+```{r}
+args(rmarkdown::html_document)
+```
 
-You can immediately publish any HTML based R Markdown document to the internet by clicking the "Publish" icon in the RStudio IDE preview window. 
+# Recap
 
-Your document will be published at its own URL hosted at [rPubs.com](http://rpubs.com/), a free web hosting service for R Markdown documents. You can share the URL with friends where they can comment on the document.
+R Markdown files are useful because
 
-Notice that [rPubs.com](http://rpubs.com/) is not intended for private or secure communication. Your document will also appear on the front page of [rPubs.com](http://rpubs.com/) where it will gradually be displaced by more recent documents.
+* They are quick and easy to write.
+* You can embed executable R code into your file, which saves manual labor and creates a reproducible report.
+* You can convert R Markdown files into HTML, PDF, and Word documents with the click of a button.
+* You can convert R Markdown files into ioslides and beamer slideshows with the click of a button.

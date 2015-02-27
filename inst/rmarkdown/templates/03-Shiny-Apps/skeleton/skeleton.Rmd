@@ -1,0 +1,228 @@
+---
+title: "Study Guide 3 - Shiny Web Apps"
+author: "Anonymous"
+date: "March 2015"
+output: 
+  html_document:
+    toc: true
+    number_sections: true
+runtime: shiny
+---
+
+```{r echo = FALSE}
+library(shiny)
+```
+
+***
+
+These notes explain how to create Shiny Web Apps. The notes accompany RStudio's workshop, [Interactive Reporting with R Markdown and Shiny](http://shiny-dc.eventbrite.com). For more details on using Shiny see <http://shiny.rstudio.com>.
+
+The notes build upon a companion study guide, _Study Guide 2 - Interactive Docs_, which explains how to control reactivity in a Shiny app.
+
+# Apps
+
+A Shiny app is a web document built by Shiny to display interactive R output. You can build a Shiny app in two ways
+
+1. Embed Shiny components in an R Markdown document
+2. Call `shinyApp()`, which provides more control over the appearance and layout of your app than R Markdown does
+
+## shinyApp()
+
+`shinyApp()` takes two arguments
+
+1. `server` - the server function for the app. This function explains to the server how to build and rebuild each reactive component of the app.
+2. `ui` - the user interface for the app. The ui is an HTML document. You can write this document in HTML, but it is more common to assemble the ui from R code with Shiny's layout functions. 
+
+### server
+
+`server` takes an unnamed function with three characteristics:
+
+1. The function takes an `input` argument and an `output` argument, like this.
+2. The body of the function contains the code that builds the rendered outputs. 
+3. The code in the body saves each rendered output as an element of the `output` argument. Shiny will use reference class semantics to look up these elements when it assembles the app.
+
+The function below demonstrates each of these features
+
+```{r}
+
+# saving the function as serv to pass to shinyApp() later
+serv <- function(input, output) {
+
+  # creates one rendered output, a histogram
+  # assigns the histogram to output$hist
+  output$hist <- renderPlot({
+  
+    # refers to input values with input$ syntax
+    hist(faithful$eruptions, breaks = input$n_breaks,
+       probability = TRUE, xlab = "Duration (minutes)", 
+       main = "Geyser eruption duration")
+  })
+}
+```
+
+Early versions of Shiny required the server function to be wrapped with `shinyServer()`. This is no longer necessary.
+
+### ui
+
+`ui` takes a user interface built from Shiny functions that return HTML (or, alternatively, raw HTML). The simplest Shiny UI looks like this
+
+```{r eval = FALSE}
+
+# fluidPage() creates an HTML div
+fluidPage(
+  # sidebarLayout() divides the div into a layout with two panels
+  sidebarLayout(
+    sidebarPanel(),
+    mainPanel()
+  )
+)
+```
+
+The ui should contain
+
+* Shiny functions that layout the ui
+* the input widgets used by the app
+* the output objects displayed by the app
+* other text and layout elements
+
+To place elements in the ui, pass them as arguments to a layout function. 
+
+```{r}
+
+# saving the ui as ui to pass to shinyApp() later
+ui <- fluidPage(
+  sidebarLayout(
+    
+    # Placing a slider widget in the sidebar panel
+    sidebarPanel(
+      sliderInput("n_breaks", label = "Number of bins:", 
+                  min = 10, max = 50, value = 25)
+    ),
+    
+    # Placing a rendered plot into the main panel
+    mainPanel(plotOutput("hist"))
+  )
+)
+```
+
+#### Reactive output
+
+Use an `*Output` function to insert reactive output into the ui. Each function takes a character string: the name of a rendered output that has been saved to `output` in the app's server function.
+
+`*Output` function  | inserts
+------------- | -------------
+`dataTableOutput` | an interactive table
+`htmlOutput`  | raw HTML
+`imageOutput`  | an image
+`plotOutput` | a plot
+`tableOutput` | a table
+`textOutput` | text
+`uiOutput` | a Shiny UI element
+`verbatimText` | text
+
+Early versions of Shiny required the ui to be wrapped with `shinyUI()`. This is no longer necessary.
+
+### A complete app
+
+Assemble your app by calling `shinyApp()` with your complete server and ui objects:
+
+```{r}
+shinyApp(server = serv, ui = ui)
+```
+
+## Your Turn 1
+
+***
+**Your Turn** - The code below generates a histogram of 500 random standard normal values. Use the code to build a shiny app in the R code chunk below.
+
+1. Define a ui that splits the app into a sidebar and a main panel
+2. Add an action button to the sidebar
+3. Insert a rendered plot into the main panel
+4. Write a server function that re-renders a histogram each time the action button is pressed
+    + Note: the value of an action button increases by one each time it is pressed.
+5. Assemble the components togther with `shinyApp()`
+
+```{r}
+    hist(rnorm(500), breaks = 30, col = "grey", border = "white",
+       main = "500 random draws from a standard normal distribution")
+```
+
+***
+
+## App directories
+
+Package your app into a single directory to 
+
+* host the app online
+* organize supporting files into a single directory
+
+### app.R
+
+To save an app as a directory, create a new directory (for example, `newdir/`) and place a file called `app.R` in the directory. `app.R` should end with a call to `shinyApp()`.
+
+
+### runApp()
+
+To run an app saved as a directory, call `runApp()` and give it the path to the directory, e.g.
+
+```{r eval = FALSE}
+runApp("newdir")
+```
+
+### Two file apps
+
+Make long apps more manageable by separating the app into two files:
+
+1. `server.R` - a file that contains the server function (everything you would pass to `server` of `shinyApp()` plus any preamble to calling `shinyApp()`, such as  
+    + calls to `library()`
+    + calls to `source()`
+    + function definitions for the app to use
+2. `ui.R` - a file that contains the ui object.
+
+Save the two files in the same directory (for example, `appdir/`). Run the app by calling 
+
+```{r eval = FALSE}
+runApp("appdir")
+```
+
+You do not need to call `shinyApp()` within `server.R` or `ui.R`.
+
+# Layout
+
+Customize the layout of your app in two ways:
+
+1. **Grids** - arrange elements within the app on a row, column grid
+2. **Panels** - sub-divide your app into multiple panels that the user can navigate between
+
+## Grid System
+
+To build a grid within `fluidPage()` or any of the panel functions listed below:
+
+1. Add one or more rows to the grid by calling `fluidRow()`
+2. Add one or more columns to a row with `column()`
+
+Use a grid to layout elements within `fluidPage()` or any of the panel functions below.
+
+### fluidRow()
+### column()
+## Panel System
+### navbarPanel()
+### tabPanel()
+### navbarPage()
+## Your Turn 2
+
+
+## Learn More
+
+Learn more about specific layout topics at <http://shiny.rstudio.com/articles>. Articles include:
+
+* **[Application Layout Guide](http://shiny.rstudio.com/articles/layout-guide.html)** - In depth guide to Shiny layouts
+* **[Build your entire UI with HTML](http://shiny.rstudio.com/articles/html-ui.html)** - Embed Shiny into HTML documents
+* **[Build a dynamic UI that reacts to user input](http://shiny.rstudio.com/articles/dynamic-ui.html)** - Let the ui respond to user selections
+* **[Shiny Dashboards](http://rstudio.github.io/shinydashboard/)** - Quickly lay out Shiny powered dashboards with `shinydashboard`
+
+# Formatting
+## HTML tags
+## Your Turn 3
+## CSS
+## Extensions
