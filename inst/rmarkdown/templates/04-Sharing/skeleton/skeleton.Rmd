@@ -1,0 +1,155 @@
+---
+title: "Study Guide 4 - Sharing Apps"
+author: "Anonymous"
+date: "March 2015"
+output: 
+  html_document:
+    toc: true
+    number_sections: true
+---
+
+***
+
+These notes explain how to share Shiny web apps and interactive documents. The notes accompany RStudio's workshop, [Interactive Reporting with R Markdown and Shiny](http://shiny-dc.eventbrite.com). For more details on using Shiny see <http://shiny.rstudio.com>.
+
+These notes build on the companion study guides, 
+
+* _Study Guide 1 - R Markdown Reports_
+* _Study Guide 2 - Interactive Docs_
+* _Study Guide 3 - Shiny Web Apps_
+
+which describe how to build R Markdown reports, interactive documents, and Shiny web apps.
+
+# Sharing
+
+Share a Shiny app by
+
+1. Sharing files for users to run locally with R
+2. Hosting the app online
+    + Users do not need to own or understand R to use a hosted Shiny app
+3. Embedding the app in R
+    + Package the app as an R function
+    
+# Share as files
+
+Anyone with a copy of your app directory can run the app on their computer in the same way that you run the app on your own computer.
+
+Shiny contains four functions that make it easy to share files for users to run locally. A user can call
+
+* `runApp()` - to run apps whose files that have been downloaded to their computer
+* `runGist()` - to run apps whose files have been posted at <http://gist.github.com>
+* `runGitHub()` - to run apps whose files have been posted at <http://github.com>
+* `runUrl()` - to run apps whose files have been posted at a web URL
+
+# Host online
+
+The most convenient way to share a Shiny app is to host it at its own URL. 
+
+* users can easily visit the app
+* users do not need to have R installed on their computer to run the app
+* users do not need to understand R to use the app
+
+You can host an app on the internet or on any intranet run by a server.
+
+To host an app, either
+
+1. Upload the app to <http://shinyapps.io>, a free hosting service run by RStudio.
+2. Build a server to host the app with [Shiny Server](http://www.rstudio.com/products/shiny/shiny-server/) or [Shiny Server Pro](http://www.rstudio.com/products/shiny-server-pro/)
+
+## shinyapps.io
+
+Shinyapps.io is a free app hosting service with paid tiers maintained by RStudio. Shinyapps.io is
+
+* **easy to use** - deploy apps with one click with the `shinyapps` package
+* **secure** - password protect your apps with SSL encryption
+* **scalable** - app resources scale as users increase. Apps that require large amounts of resources can be supported on a paid plan.
+
+### Set up
+
+To use shinyapps.io,
+
+1. Install
+    + (for Windows users only) [RTools]() for building packages
+    + (for Mac users only) [XCode Command Line Tools]() for building packages
+    + (for Linux users only) [GCC]() for building packages
+2. Install the `devtools` package from cran 
+
+```{r eval = FALSE}
+install.packages("devtools")
+```
+
+3. Install the `shinyapps` package from github
+```{r eval = FALSE}
+devtools::install_github("rstudio/shinyapps")
+```
+4. Load the `shinyapps` package
+```{r eval = FALSE}
+library("shinyapps")
+```
+5. Create an account at <http://shinyapps.io>
+   + Sign in with a Google or Github account, or create a new shinyapps.io account
+![](shinyapps-signin.png)
+
+6. Retrieve your token from the shinyapps.io dashboard by clicking _<Your username> (Upper right hand corner) > Token > Show > Copy to clipboard
+![](shinyapps-token.png)
+
+7. Paste the copied command into the RStudio command line and click enter
+```{r eval = FALSE}
+shinyapps::setAccountInfo(name='something', token='something', secret='something')
+```
+
+These steps link your RStudio IDE to your shinyapps.io account. They also prepare your computer to build apps (and their package dependencies) to deploy online.
+
+### deploy
+
+To deploy an app to the internet, 
+
+1. Package the app as a directory that contains the `app.R` file (or `server.R` and `ui.R` files) as well as all supporting files used by the app.
+1. Launch the app in the RStudio preview window
+2. Click "Publish"
+
+![](shinyapps-publish.png)
+
+3. Alternatively, run
+
+```{r eval = FALSE}
+shinyapps::deployApp("<filepath to app directory>")
+```
+
+`shinyapps` will upload the app to <http://shinyapps.io>, where it will be hosted with its own URL.
+
+### password protect
+
+To password protect your app, 
+
+1. Visit your app dashboard at <http://shinyapps.io>
+2. Navigate to the "Users" tab
+3. Set Application visibility to "Private"
+4. Enter authorized users
+
+![](shinyapps-password.png)
+
+### archive
+
+To archive an app (the app will no longer be accessible over the internet
+
+1. Visit your app dashboard at <http://shinyapps.io>
+2. Click the "Archive" tab
+![](shinyapps-archive.png)
+
+3. Alternatively, run
+
+```{r eval = FALSE}
+shinyapps:terminateApp("<filepath to app directory>")
+```
+
+## Build a server
+### Shiny Server
+### Shiny Server Pro
+### Learn more
+## Performance
+### Execution
+### Share data across sections
+# Embed in R
+## shinyAppDir()
+## stopApp()
