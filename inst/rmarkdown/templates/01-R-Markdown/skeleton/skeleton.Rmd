@@ -321,6 +321,19 @@ Use `args` to see which output options a format recognizes:
 args(rmarkdown::html_document)
 ```
 
+Change the style of an HTML output with the `css` and `theme` arguments. 
+
+* `css` takes the filepath to a css style sheet
+* `theme` takes the name of one of R Markdown's pre-packaged Bootstrap CSS themes:
+    + `default`
+    + `cerulean`
+    + `journal`
+    + `flatly`
+    + `readable`
+    + `spacelab`
+    + `united`
+    + `cosmo`
+
 # Recap
 
 R Markdown files are useful because
