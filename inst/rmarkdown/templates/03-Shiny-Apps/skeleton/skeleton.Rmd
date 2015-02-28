@@ -434,7 +434,7 @@ function  | creates
 `strong()` | bold text
 `tags$block` | A block quote
 `tags$img` | An image
-`tags$ol()`, `tags$ul()`, `tags$li()` | orderd list, unordered list, list item
+`tags$ol()`, `tags$ul()`, `tags$li()` | ordered list, unordered list, list item
 
 ### HTML Style Guide
 
@@ -461,10 +461,10 @@ ui <- fluidPage(
   fluidRow("A hyperlink (to href='shiny.rstudio.com')"),  
   fluidRow("A horizontal rule"),  
 
-  fluidRow("An unordered list:," "Item 1", "Item 2", 
+  fluidRow("An unordered list:", "Item 1", "Item 2", 
            "sub-item 1", "sub-item 2"),  
 
-  fluidRow("An ordered list:," "Item 1", "Item 2", 
+  fluidRow("An ordered list:", "Item 1", "Item 2", 
            "sub-item 1", "sub-item 2")
 )
 
