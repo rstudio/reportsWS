@@ -7,7 +7,7 @@ library(forecast)
 
 # Select name and gender
 name <- "Garrett"    # Always capitalize
-sex <- "M"         # or "M"
+sex <- "M"           # or "F"
 names <- get_babyname(name, sex)
 
 # Create time series and forecast
@@ -17,7 +17,7 @@ pred <- forecast(mod, h = 12) # 12 for 2025
 
 # Results
 sum(nbirths, na.rm = TRUE)                  # total number with name
-round(xts::last(pred$mean))                      # predicted number in 2025
+round(xts::last(pred$mean))                 # predicted number in 2025
 trim_whitespace(pred$method)                # ARIMA method used
 data.frame(
   method = trim_whitespace(pred$method),
