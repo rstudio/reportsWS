@@ -275,7 +275,7 @@ Render the document when you are finished and check that the text updates as you
 # render a piece of text that displays the factorial of the number above
 ```
 
-_Note: you can put Shny inputs and outputs in separate code blocks. With R Markdown, the objects that you create in one code block are available in later code blocks._
+_Note: you can put Shiny inputs and outputs in separate code blocks. With R Markdown, the objects that you create in one code block are available in later code blocks._
 
 ***
 
