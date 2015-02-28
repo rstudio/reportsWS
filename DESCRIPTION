@@ -17,6 +17,4 @@ Imports:
   babynames,
   forecast,
   xts,
-  dygraphs,
-  shinyapps
-
+  dygraphs
