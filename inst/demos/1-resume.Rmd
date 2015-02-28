@@ -1,0 +1,17 @@
+# Garrett Grolemund
+Data Scientist and Master Instructor  
+garrett@rstudio.com  
+[rstudio.com](www.rstudio.com)  
+Orlando, FL  
+
+***
+
+## Expertise
+
+I wrote the popular [lubridate](http://www.r-statistics.com/2012/03/do-more-with-dates-and-times-in-r-with-lubridate-1-1-0/) package and am the author of _Hands On Programming with R_ as well as _Data Science with R_, an upcoming book from O’Reilly Media. I have a Ph.D. in Statistics and specialize in the theory of data science. I enjoy:
+
+* __Teaching__ - I design and teach workshops for RStudio. I'm also the Editor-in-Chief of the [Shiny Development Center](http://shiny.rstudio.com), a great place to learn Shiny.
+* __Statistics__ - I have an M.A. in Statistics from Harvard University and a Ph.D. in Statistics from Rice University. 
+* __Teaching statistics__ - I have travelled as far as New Zealand, the birthplace of R, to research better ways to teach statistics.
+
+***
