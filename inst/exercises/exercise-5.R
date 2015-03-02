@@ -1,6 +1,6 @@
-# Exercise 5: the app below let's users manipulate the parameters of an ARIMA(p, d, q) model and instantly see the results, as well as an ACF and PACF plot (two tools for diagnosing the correct parameters).
+# Exercise 5: the app below lets users manipulate the parameters of an ARIMA(p, d, q) model and instantly see the results, as well as an ACF and PACF plot (two tools for diagnosing the correct parameters).
 #
-# Try it out, then turn the app into a function anmed shiny_arima that takes an argument, ts (a time series to model), launches an app that lets users select ideal values of p, d, and q, and then returns the results as a model object to manipulate at the command line. To do this you will need to
+# Try it out, then turn the app into a function named shiny_arima that takes an argument, ts (a time series to model), launches an app that lets users select ideal values of p, d, and q, and then returns the results as a model object to manipulate at the command line. To do this you will need to
 # 1. wrap the app in function() and save it as shiny_arima
 # 2. turn ts into a parameter/function argument
 # 3. Add an actionButton() that the user can click to stop the app
