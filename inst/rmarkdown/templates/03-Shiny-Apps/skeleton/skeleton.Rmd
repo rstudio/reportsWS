@@ -257,7 +257,7 @@ You can subdivide a portion of your app into `tabPanel()`s with
 
 You can subdivide your entire app into separate `tabPanel()`'s (e.g., pages) with 
 
-* `navbarLayout()`
+* `navbarPage()`
 
 ### tabsetPanel()
 
@@ -428,12 +428,12 @@ function  | creates
 `em()` | emphasized (italicized) text
 `h1(), h2(), h3(), h4(), h5(), h6()` | hierarchical headings
 `hr()` | a horizontal line
+`img()` | An image
 `p()` | a new paragraph
 `pre()` | Monospaced text
 `span()` | a group of inline elements
 `strong()` | bold text
-`tags$block` | A block quote
-`tags$img` | An image
+`tags$block()` | A block quote
 `tags$ol()`, `tags$ul()`, `tags$li()` | ordered list, unordered list, list item
 
 ### HTML Style Guide
