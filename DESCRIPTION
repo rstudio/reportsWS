@@ -11,7 +11,6 @@ Description: Data sets, functions, and study guides (as R Markdown templates) fo
 License: CC0
 LazyData: TRUE
 Imports:
-  dplyr,
   shiny,
   knitr,
   babynames,

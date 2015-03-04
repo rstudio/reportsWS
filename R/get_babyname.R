@@ -22,6 +22,6 @@ get_babyname <- function(name, sex) {
   names <- babynames::babynames[
     babynames::babynames$name == name &
     babynames::babynames$sex == sex, ]
-  span <- dplyr::data_frame(year = 1880:2013)
-  dplyr::left_join(span, names, by = "year")
+  span <- data.frame(year = 1880:2013)
+  merge(span, names, by = "year", all = TRUE)
 }
