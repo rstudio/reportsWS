@@ -1,0 +1,58 @@
+---
+title: "What's in a name?"
+output: html_document
+---
+
+Turn this file into an interactive document with Shiny components. To do this:
+
+1. Prepare the document to run shiny and call shiny functions
+2. Add an input function to collect a name value
+3. Add an input function to collect a sex value
+    + The value choices _must_ be `"M"` and `"F"`
+4. Correctly call each R object in the file so that it reacts when the user changes an input value.
+    + consider how to refer to the object (`name` v. `input$name` v. `names()`)
+    + consider how to treat the object
+        + do you need to wrap the code that calls it in one of 
+            + `reactive()`
+            + `render*()`
+            + `observe()`
+            + `isolate()`
+        + does that change how you need to refer to the output of the code?
+5. Re-render the document frequently as you work to catch errors early.
+    + to make this easy, I've commented out each R object. Errors will come only from the objects you have worked on (uncomment as you go).
+
+***
+
+```{r echo=FALSE, message=FALSE}
+library(reportsWS)
+library(forecast)
+library(dygraphs)
+
+# SELECT A NAME
+# SELECT A SEX ("M" or "F")
+
+# Create time series and forecast
+#nbirths <- ts(#names$n, start = 1880)
+#mod <- auto.arima(#nbirths)
+#pred <- forecast(#mod, h = 12) # 12 for 2025
+```
+
+Since 1880, `r #sum(#nbirths, na.rm = TRUE)` children have been named **`r #name`**. The graph below breaks this number down by year showing the number of children named `r #name` as a time series. 
+
+```{r echo = FALSE, fig.width = 6}
+# title <- paste0("Number of children named ", #name)
+# all <- bind_as_xts(#nbirths, #pred) 
+
+# dygraph(all, main = title) %>%
+#   dySeries("x", label = "n children") %>% 
+#   dySeries(c("lower", "fitted", "upper"), label = "Predicted") %>% 
+#   dyRangeSelector()
+```
+
+We modeled this time series with an `r #trim_whitespace(#pred$method)` model to predict the number of children that will be given the name `r #name` in 2025.
+
+```{r echo = FALSE}
+# data.frame(
+#   method = trim_whitespace(#pred$method), 
+#   predicted_2025 = round(xts::last(#pred$mean)))
+```

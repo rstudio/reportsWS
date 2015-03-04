@@ -1,0 +1,93 @@
+---
+title: "Exercise 7 - Shiny Inputs"
+output: html_document
+runtime: shiny
+---
+
+For each input function below: 
+
+1. Supply the arguments needed by the function
+    + each needs an `inputId` and a `label` argument
+    + if a function needs additional arguments, they are listed above the function
+2. Remove `eval=FALSE` from the code chunk
+3. Re-render the document to see the finished input
+
+How many inputs can you complete in 10 minutes?
+
+***
+
+```{r eval = FALSE}
+actionButton()
+```
+
+```{r eval = FALSE}
+actionLink()
+```
+
+```{r eval = FALSE}
+# value - TRUE or FALSE. Should the checkbox begin checked?
+checkboxInput()
+```
+
+```{r eval = FALSE}
+# choices - Character vector. List of values to show checkboxes for.
+# selected - Character vector. List of checkboxes to begin checked.
+# inline - TRUE or FALSE. Should the boxes be shown inline (vs. above one another)?
+checkboxGroupInput()
+```
+
+```{r eval = FALSE}
+# value - NULL, a Date object, or a string in yyy-mm-dd format. The starting date.
+dateInput()
+```
+
+```{r eval = FALSE}
+# start - NULL, a Date object, or a string in yyy-mm-dd format. The initial start date.
+# end - NULL, a Date object, or a string in yyy-mm-dd format. The initial end date.
+dateRangeInput()
+```
+
+```{r eval = FALSE}
+fileInput()
+```
+
+```{r eval = FALSE}
+# value - Numeric. Initial value
+# min - Numeric. Minimum value allowed.
+# max - Numeric. Maximum value allowed.
+# step - Numeric. Interval to use when stepping between min and max.
+numericInput()
+```
+
+```{r eval = FALSE}
+# value - Character string. Initial value
+passwordInput()
+```
+
+```{r eval = FALSE}
+# choices - Character vector. List of values to select from.
+# selected - Character string. The initial selected value.
+# inline - TRUE or FALSE. Should the buttons be shown inline (vs. above one another)?
+radioButtons()
+```
+
+```{r eval = FALSE}
+# choices - Character vector. List of values to select from.
+# selected - Character string. The initial selected value.
+# multiple - TRUE or FALSE. Can user select multiple items?
+selectInput()
+```
+
+```{r eval = FALSE}
+# value - Numeric. Initial value
+# min - Numeric. Minimum value allowed.
+# max - Numeric. Maximum value allowed.
+# step - Numeric. Interval to use when stepping between min and max.
+# animate - TRUE or FALSE. Show simple animation controls with slider?
+sliderInput()
+```
+
+```{r eval = FALSE}
+# value - Character string. Initial value
+textInput()
+```

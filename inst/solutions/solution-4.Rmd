@@ -1,6 +1,10 @@
 ---
-title: "Exercise 4 - YAML headers"
-output: html_document
+title: "Solution 4 - YAML headers"
+output: 
+  html_document:
+    toc: true
+    number_sections: true
+    theme: spacelab
 ---
 
 Modify the YAML of this document to add:

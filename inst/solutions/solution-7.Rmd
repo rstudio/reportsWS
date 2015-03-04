@@ -1,0 +1,101 @@
+---
+title: "Solution 7 - Shiny Inputs"
+output: html_document
+runtime: shiny
+---
+
+For each input function below: 
+
+1. Supply the arguments needed by the function
+    + each needs an `inputId` and a `label` argument
+    + if a function needs additional arguments, they are listed above the function
+2. Remove `eval=FALSE` from the code chunk
+3. Re-render the document to see the finished input
+
+How many inputs can you complete in 10 minutes?
+
+***
+
+```{r}
+actionButton(inputId = "button", label = "Click me!")
+```
+
+```{r}
+actionLink(inputId = "link", label = "Click me!")
+```
+
+```{r}
+# value - TRUE or FALSE. Should the checkbox begin checked?
+checkboxInput(inputId = "checkbox", label = "Click me!")
+```
+
+```{r}
+# choices - Character vector. List of values to show checkboxes for.
+# selected - Character vector. List of checkboxes to begin checked.
+# inline - TRUE or FALSE. Should the boxes be shown inline (vs. above one another)?
+checkboxGroupInput(inputId = "checkgroup", label = "Chose from",
+                   choices = c("Choice A", "Choice B", "Choice C"),
+                   selected = "Choice A", inline = FALSE)
+```
+
+```{r}
+# value - NULL, a Date object, or a string in yyy-mm-dd format. The starting date.
+dateInput(inputId= "date", label = "Select a date", value = Sys.Date())
+```
+
+```{r}
+# start - NULL, a Date object, or a string in yyy-mm-dd format. The initial start date.
+# end - NULL, a Date object, or a string in yyy-mm-dd format. The initial end date.
+dateRangeInput(inputId= "date", label = "Select a date", start = Sys.Date(), end = Sys.Date() + 7)
+```
+
+```{r}
+fileInput(inputId= "file", label = "Upload a data set")
+```
+
+```{r}
+# value - Numeric. Initial value
+# min - Numeric. Minimum value allowed.
+# max - Numeric. Maximum value allowed.
+# step - Numeric. Interval to use when stepping between min and max.
+numericInput(inputId= "number", label = "Pick a number",
+             value = 0, min = -10, max = 10, step = 0.5)
+```
+
+```{r}
+# value - Character string. Initial value
+passwordInput(inputId= "password", label = "Enter your password", value = "123456789")
+```
+
+```{r}
+# choices - Character vector. List of values to select from.
+# selected - Character string. The initial selected value.
+# inline - TRUE or FALSE. Should the buttons be shown inline (vs. above one another)?
+radioButtons(inputId= "radio", label = "Choose one", 
+             choices = c("Choice A", "Choice B", "Choice C"),
+             selected = "Choice A", inline = FALSE)
+```
+
+```{r}
+# choices - Character vector. List of values to select from.
+# selected - Character string. The initial selected value.
+# multiple - TRUE or FALSE. Can user select multiple items?
+selectInput(inputId= "select", label = "Choose one", 
+            choices = c("Choice A", "Choice B", "Choice C"),
+            selected = "Choice A", multiple = FALSE)
+```
+
+```{r}
+# value - Numeric. Initial value
+# min - Numeric. Minimum value allowed.
+# max - Numeric. Maximum value allowed.
+# step - Numeric. Interval to use when stepping between min and max.
+# animate - TRUE or FALSE. Show simple animation controls with slider?
+sliderInput(inputId= "slider", label = "Pick a number",
+            value = 0, min = -10, max = 10, step = 0.5)
+```
+
+```{r}
+# value - Character string. Initial value
+textInput(inputId = "text", label = "Type a name", value = "Fido")
+```

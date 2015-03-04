@@ -1,0 +1,32 @@
+---
+title: "Exercise 9 - Delay reactions"
+output: html_document
+runtime: shiny
+---
+
+`isolate()` provides a useful way to delay reactions when combined with an `actionButton()`. To see this:
+
+1. Remove `eval = FALSE` from the code chunk below.
+
+2. Use `isolate()` to prevent the histogram from updating when the selectbox changes. 
+    + In general, it is a good idea to wrap as little code in `isolate()` as possible, even if you have to call `isolate()` twice. Check that your method worked.
+
+3. Add an `actionButton()` like `actionButton("go", "Go!")` to your document. Place it before the call to `renderPlot()`. 
+
+4. Call the action button from within `renderPlot()`. Then `renderPlot()` will reupdate whenever the action button changes (e.g. is clicked). 
+    + `renderPlot()` does not need to do anything particular with the button's value, it can just look it up and then move on to the histogram.
+
+5. Re-render the document. Change the select box. What happens to the plot? Click the action button. What happens to the plot?
+
+```{r echo=FALSE}
+selectInput("iriscol", label = "Select a variable", choices = names(iris))
+```
+
+
+```{r echo=FALSE}
+renderPlot({
+  # call the action button here
+  hist(iris[[input$iriscol]], probability = TRUE, 
+       xlab = input$iriscol)
+})
+```

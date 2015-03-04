@@ -1,42 +1,80 @@
 ---
-title: "What's in a name?"
-author: "Garrett Grolemund"
-date: "February 24, 2015"
+title: "Solution 2"
 output: html_document
 ---
 
-```{r echo=FALSE, message=FALSE}
-library(reportsWS)
-library(forecast)
-library(dygraphs)
+For each line below:
+  
+1. Format the line with markdown to display what the line describes.
+2. Re-render the file to see if it worked.
+3. Move on to the next line.
 
-# Select name and gender
-name <- "Gillian"    # Always capitalize
-sex <- "F"           # or "M"
-names <- get_babyname(name, sex)
+***
 
-# Create time series and forecast
-nbirths <- ts(names$n, start = 1880)
-mod <- auto.arima(nbirths)
-pred <- forecast(mod, h = 12) # 12 for 2025
+You can use markdown to indicate:
+
+# A first level header  
+## A second level header  
+### A third level header  
+#### A fourth level header  
+##### A fifth level header  
+###### A sixth level header  
+
+> A block quote 
+
+```
+A code block  
 ```
 
-Since 1880, `r sum(nbirths, na.rm = TRUE)` children have been named **`r name`**. The graph below breaks this number down by year showing the number of children named `r name` as a time series. 
+__bold text__ 
+_italic text_  
+`Monospaced text (e.g., code)`  
+~~striked text~~  
+superscripts^2^  
 
-```{r echo = FALSE, fig.width = 6}
-title <- paste0("Number of children named ", name)
-all <- bind_as_xts(nbirths, pred) 
+An inline equation, $E = mc^{2}$.  
+An equation block (below)  
+$$E = mc^{2}$$  
 
-dygraph(all, main = title) %>%
-  dySeries("x", label = "n children") %>% 
-  dySeries(c("lower", "fitted", "upper"), label = "Predicted") %>% 
-  dyRangeSelector()
-```
+[A hyperlink](rmarkdown.rstudio.com)  
+![](orb.png)  
+A horizontal rule (below)
 
-We modeled this time series with an `r trim_whitespace(pred$method)` model to predict the number of children that will be given the name `r name` in 2025.
+***
 
-```{r echo = FALSE}
-knitr::kable(data.frame(
-  method = trim_whitespace(pred$method), 
-  predicted_2025 = round(xts::last(pred$mean))), "markdown")
-```
+An unordered list:  
+
+* Item 1  
+* Item 2  
+    + sub-item 1  
+    + sub-item 2  
+
+An ordered list:  
+
+1. Item 1  
+2. Item 2  
+    + sub-item 1  
+    + sub-item 2  
+
+A table:  
+
+Header 1 Header 2  
+-------- --------
+Cell 1   Cell 2  
+Cell 3   Cell 4  
+
+***
+  
+If you finished early (congratulations!), write a short description of yourself below. Use a header, some bold text, some italic text, and three bullet points.
+
+***
+
+## Garrett Grolemund
+
+I'm the instructor of _Interactive reporting with R Markdown and Shiny_, as well as the editor of the **Shiny Development Center** at [shiny.rstudio.com](http://shiny.rstudio.com) and the author of the `lubridate` package in R. Thank you very much for coming to my class.
+
+I enjoy:
+
+* teaching
+* statistics
+* teaching statistics

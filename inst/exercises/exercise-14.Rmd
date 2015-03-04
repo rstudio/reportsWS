@@ -1,0 +1,84 @@
+---
+title: "What's in a name?"
+author: "Garrett Grolemund"
+date: "February 24, 2015"
+output: html_document
+runtime: shiny
+---
+
+```{r}
+# Exercise 14: Use components of this interactive document to recreate the Shiny wep app in the slides. To do this, you will need to 
+# 1. Open a new file and save it as `app.R`. In the file,
+# 2. Call each library used in this app, including `shiny`
+# 3. define a server object 
+#    a. add the minimum necessary code for a server object, then
+#    b. add the reactive expressions used in this file
+#    c. add the outputs used in the new app. These include:
+#        i. the dygraphs plot
+#            + the dygraphs libary provides two useful functions 
+#              for working with dygraphs: `renderDygraph` and 
+#              `dygraphOutput`. you should use each in the course 
+#              of this assignment.
+#        ii. The sum of children with the name
+#        iii. The predicted number of children in 2025
+#        iv. A rendered character string that says "children have had NAME since 1880."
+#        v. A rendered character string that says "children will have the name in 2025 according to an MODEL"
+#        vi. A data table created with `renderDataTable(names())`
+#    d. save each of the above outputs to the output object
+# 4. define a ui object
+#    a. for this app, create a navbarPage with two tab panels
+#       i. title the navbar page "What's in a name?"
+#       ii. title the first panel "Home"
+#           + use shiny's fluidRow() and column() functions to create the layout in the slide
+#           + place well panels and inputs into the layout
+#           + place each of the rendered outputs above, except the data dable, into the layout with *Output functions
+#       i. title the second panel "Raw Data"
+#           + place the data table output into this tab panel
+# 4. call shinyApp() at the very end of the file
+```
+
+```{r echo=FALSE, message=FALSE}
+library(reportsWS)
+library(forecast)
+library(dygraphs)
+library(shiny)
+
+# Select name and gender
+textInput(inputId = "name", label = "Type a name", value = "Garrett")
+radioButtons(inputId = "sex", label = "Choose gender",
+             choices = c("M", "F"), inline = TRUE)
+names <- reactive(get_babyname(input$name, input$sex))
+
+# Create time series and forecast
+nbirths <- reactive(ts(names()$n, start = 1880))
+
+pred <- reactive({
+  mod <- auto.arima(nbirths())
+  forecast(mod, h = 12) # 12 for 2025
+})
+```
+
+Since 1880, `r renderText(sum(nbirths(), na.rm = TRUE))` children have been named **`r renderText(input$name)`**. The graph below breaks this number down by year showing the number of children named `r renderText(input$name)` as a time series. 
+
+```{r echo = FALSE}
+renderDygraph({
+  title <- paste0("Number of children named ", input$name)
+  all <- bind_as_xts(nbirths(), pred()) 
+
+  dygraph(all, main = title) %>%
+    dySeries("x", label = "n children") %>% 
+    dySeries(c("lower", "fitted", "upper"), label = "Predicted") %>% 
+    dyRangeSelector()
+})
+```
+
+We modeled this time series with an `r renderText(trim_whitespace(pred()$method))` model to predict the number of children that will be given the name `r renderText(input$name)` in 2025.
+
+```{r echo = FALSE}
+renderTable({
+  data.frame(
+    method = trim_whitespace(pred()$method), 
+    predicted_2025 = round(xts::last(pred()$mean)))
+})
+```
+

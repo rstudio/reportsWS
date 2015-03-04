@@ -1,58 +1,73 @@
 ---
-title: "What's in a name?"
-author: "Garrett Grolemund"
-date: "February 24, 2015"
+title: "Exercise 3 - Knitr chunk options"
 output: html_document
 ---
 
+For each knitr code chunk option below
+
+1. Add the option to the code chunk it accompanies.
+2. Rerender the file to see what the option does. If you cannot tell, rerender the file both with and without the code chunk.
+3. Describe in your own words what the option does.
+
+***
+
+`eval = FALSE` 
+
 ```{r}
-# Exercise 3: Turn this file into an interactive document with Shiny components. To do this:
-# 1. Prepare the document ot run shiny and call shiny functions
-# 2. remove the `name` and `sex` variables
-# 3. replace them with a text field where a user can type a name
-# 4. and a pair of radio buttons where a user can select a sex
-# 5. Then ensure that each plot, number, and piece of text updates whenever a user provides a new name or sex. You will need to ensure that
-#   a. each reactive object is called with the correct syntax 
-#      (e.g. name vs. input$name vs. names())
-#   b. each reactive object is handled with a shiny wrapper function
-#      (e.g. reactive(), render*(), isolate(), or observe())
-# 6. Combine lines of code within the same shiny wrapper function where appropriate
-# 7. Notice that the dygraphs package provides two helper functions for working with dygraphs in shiny: renderDygraph and dygraphOutput
-# 8. Delete this code chunk when finished
+colMeans(cars)
+```
+Description:
+
+***
+
+`results = 'hide'` 
+
+```{r}
+carmeans <- colMeans(cars)
 ```
 
-```{r echo=FALSE, message=FALSE}
-library(reportsWS)
+```{r}
+# Hint: this code would give an error if you 
+# added `eval = FALSE` to the chunk above
+carmeans
+```
+Description:
+
+***
+
+`echo = FALSE`
+
+```{r}
+plot(cars)
+```
+Description:
+
+***
+
+`fig.width = 5, fig.height = 4`  
+When adding multiple arguments to a code chunk, separate the arguments by a comma.
+
+```{r}
+plot(cars)
+```
+Description:
+
+***
+
+`message = FALSE`   
+
+```{r}
+# libraries like to print messages
 library(forecast)
-library(dygraphs)
-
-# Select name and gender
-name <- "Gillian"    # Always capitalize
-sex <- "F"           # or "M"
-names <- get_babyname(name, sex)
-
-# Create time series and forecast
-nbirths <- ts(names$n, start = 1880)
-mod <- auto.arima(nbirths)
-pred <- forecast(mod, h = 12) # 12 for 2025
 ```
+Description:
 
-Since 1880, `r sum(nbirths, na.rm = TRUE)` children have been named **`r name`**. The graph below breaks this number down by year showing the number of children named `r name` as a time series. 
+***
 
-```{r echo = FALSE, fig.width = 6}
-title <- paste0("Number of children named ", name)
-all <- bind_as_xts(nbirths, pred) 
-
-dygraph(all, main = title) %>%
-  dySeries("x", label = "n children") %>% 
-  dySeries(c("lower", "fitted", "upper"), label = "Predicted") %>% 
-  dyRangeSelector()
+`warning = FALSE`
+```{r}
+warning("This function returns a warning!")
 ```
+Description:
 
-We modeled this time series with an `r trim_whitespace(pred$method)` model to predict the number of children that will be given the name `r name` in 2025.
-
-```{r echo = FALSE}
-data.frame(
-  method = trim_whitespace(pred$method), 
-  predicted_2025 = round(xts::last(pred$mean)))
-```
+***

@@ -1,0 +1,19 @@
+---
+title: "What's in a name?"
+author: "Your name"
+date: "Today's date"
+output: html_document
+---
+
+```{r echo=FALSE, message=FALSE}
+# INTIAL SET UP
+```
+
+Since 1880, NUMBER children have been named NAME. The graph below breaks this number down by year showing the number of children named NAME as a time series. 
+
+PLOT
+
+We modeled this time series with an MODEL model to predict the number of children that will be given the name NAME in 2025.
+
+TABLE
+

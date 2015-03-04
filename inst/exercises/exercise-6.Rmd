@@ -1,0 +1,73 @@
+---
+title: "What's in a name?"
+author: "Your name"
+date: "Today's date"
+output: html_document
+---
+
+The code chunk below uses the dygraphs library to plot an interactive chart of `ldeaths`, a data set in the dygraphs library.
+
+Use the code as a model to replace the plot in our report at the bootom of the page with an interactive dygraph.
+
+Note that the example code below is keyed to use the variable names `ldeaths`, `p.lwr`, `p.fit` and `p.upr`, which appear in the `all` object that the code creates.
+
+_Your_ code should be keyed to use the variable names that appear in _your_ all object: `x`, `lower`, `fitted`, and `upper`.
+
+```{r}
+# loads dygraph library
+library(dygraphs)
+
+# preprocesses data (ignore this part:
+# we've already preprocessed our data in the report below)
+hw <- HoltWinters(ldeaths)
+p <- predict(hw, n.ahead = 36, prediction.interval = TRUE)
+all <- cbind(ldeaths, p)
+
+# builds a plot with the title "Deaths from..."
+dygraph(all, "Deaths from Lung Disease (UK)") %>%
+  
+  # changes the "ldeaths" label" to "Actual"
+  dySeries("ldeaths", label = "Actual") %>%
+  
+  # combines the three prediction lines into a single line
+  # that is named "Predicted" and has a confidence band
+  dySeries(c("p.lwr", "p.fit", "p.upr"), label = "Predicted") %>%
+  
+  # adds a range selector beneath the graph
+  dyRangeSelector()
+```
+
+***
+
+```{r echo=FALSE, message=FALSE}
+library(reportsWS)
+library(forecast)
+
+# Select name and gender
+name <- "Gillian"    # Always capitalize
+sex <- "F"           # or "M"
+names <- get_babyname(name, sex)
+
+# Create time series and forecast
+nbirths <- ts(names$n, start = 1880)
+mod <- auto.arima(nbirths)
+pred <- forecast(mod, h = 12) # 12 for 2025
+```
+
+Since 1880, `r sum(nbirths, na.rm = TRUE)` children have been named **`r name`**. The graph below breaks this number down by year showing the number of children named `r name` as a time series. 
+
+```{r echo = FALSE, warning = FALSE}
+# Make plot
+title <- paste0("Number of children named ", name)
+all <- bind_as_xts(nbirths, pred) 
+plot(all, main = title)
+```
+
+We modeled this time series with an `r trim_whitespace(pred$method)` model to predict the number of children that will be given the name `r name` in 2025.
+
+```{r echo = FALSE}
+knitr::kable(data.frame(
+  method = trim_whitespace(pred$method), 
+  predicted_2025 = round(xts::last(pred$mean))), "markdown")
+```
+

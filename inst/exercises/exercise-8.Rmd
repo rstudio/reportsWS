@@ -1,0 +1,25 @@
+---
+title: "Exercise 8 - First Shiny app"
+output: html_document
+runtime: shiny
+---
+
+Complete the code blocks below to make one slider, one reactive expression, and two interactive pieces of text. After each code chunk, re-render the document to check your progress for errors.
+
+```{r echo = FALSE}
+# create a slider input that selects a number, include negatives and use step = 0.5
+```
+
+```{r echo = FALSE}
+# create a reactive expression that rounds the slider value to the nearest whole number (with `round()`) and then returns the absolute value (with `abs()`).
+```
+
+The square of your number:
+```{r echo = FALSE}
+# Create a piece of rendered text that shows the square of the rounded number (e.g., n^2)
+```
+
+The factorial of your number:
+```{r echo = FALSE}
+# Create a piece of rendered text that shows the factorial of the rounded number (with factorial())
+```

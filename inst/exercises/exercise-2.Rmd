@@ -1,49 +1,62 @@
 ---
-title: "What's in a name?"
-author: "Your name"
-date: "Today's date"
+title: "Exercise 2 - Markdown syntax"
 output: html_document
 ---
 
-```{r echo = FALSE}
-# Exercise 2: Modify this file to use an interactive dygraph to display `all`. Notice that the dygraph can do something plot cannot; it can display the predictions and the error band alongside the original time series. Include a range selector and useful labels.
+For each line below:
+  
+1. Format the line with markdown to display what the line describes.
+2. Re-render the file to see if it worked.
+3. Move on to the next line.
 
-# You can model your dygraph code after the code at 
-# http://rstudio.github.io/dygraphs/gallery-upper-lower-bars.html
-# http://rstudio.github.io/dygraphs/gallery-range-selector.html
+***
 
-# Delete this code chunk in your final document.
-```
+You can use markdown to indicate:
 
-```{r echo=FALSE, message=FALSE}
-library(reportsWS)
-library(forecast)
+A first level header  
+A second level header  
+A third level header  
+A fourth level header  
+A fifth level header  
+A sixth level header  
 
-# Select name and gender
-name <- "Gillian"    # Always capitalize
-sex <- "F"           # or "M"
-names <- get_babyname(name, sex)
+A block quote  
 
-# Create time series and forecast
-nbirths <- ts(names$n, start = 1880)
-mod <- auto.arima(nbirths)
-pred <- forecast(mod, h = 12) # 12 for 2025
-```
+A code block  
 
-Since 1880, `r sum(nbirths, na.rm = TRUE)` children have been named **`r name`**. The graph below breaks this number down by year showing the number of children named `r name` as a time series. 
+bold text  
+italic text  
+Monospaced text (e.g., code)  
+striked text  
+superscripts2  
 
-```{r echo = FALSE, warning = FALSE}
-# Make plot
-title <- paste0("Number of children named ", name)
-all <- bind_as_xts(nbirths, pred) 
-plot(all, main = title)
-```
+An inline equation, E = mc^{2}.  
+An equation block (below)  
+E = mc^{2}  
 
-We modeled this time series with an `r trim_whitespace(pred$method)` model to predict the number of children that will be given the name `r name` in 2025.
+A hyperlink (to rmarkdown.rstudio.com)  
+An image (like orb.png)  
+A horizontal rule (below)  
 
-```{r echo = FALSE}
-knitr::kable(data.frame(
-  method = trim_whitespace(pred$method), 
-  predicted_2025 = round(xts::last(pred$mean))), "markdown")
-```
+An unordered list:  
+Item 1  
+Item 2  
+sub-item 1  
+sub-item 2  
 
+An ordered list:  
+Item 1  
+Item 2  
+sub-item 1  
+sub-item 2  
+
+A table:  
+Header 1 Header 2  
+Cell 1 Cell 2  
+Cell 3 Cell 4  
+
+***
+  
+If you finished early (congratulations!), write a short description of yourself below. Use a header, some bold text, some italic text, and three bullet points.
+
+***
