@@ -24,12 +24,13 @@ Description:
 
 ```{r}
 carmeans <- colMeans(cars)
+1 + 1
 ```
 
 ```{r}
-# Hint: this code would give an error if you 
+# Hint: this code would return FALSE if you 
 # added `eval = FALSE` to the chunk above
-carmeans
+exists("carmeans")
 ```
 Description:
 

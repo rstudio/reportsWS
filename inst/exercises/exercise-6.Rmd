@@ -5,13 +5,11 @@ date: "Today's date"
 output: html_document
 ---
 
-The code chunk below uses the dygraphs library to plot an interactive chart of `ldeaths`, a data set in the dygraphs library.
+The code below makes a dygraph from an object named all that has the names "ldeaths", "p.lwr", "p.fit", "p.upr". 
 
-Use the code as a model to replace the plot in our report at the bootom of the page with an interactive dygraph.
+Instead of making `plot(all)` in your report below, you'd like to make a dygraph from your object named all that has the names "x", "lower", "fitted", "upper"
 
-Note that the example code below is keyed to use the variable names `ldeaths`, `p.lwr`, `p.fit` and `p.upr`, which appear in the `all` object that the code creates.
-
-_Your_ code should be keyed to use the variable names that appear in _your_ all object: `x`, `lower`, `fitted`, and `upper`.
+Can you do it? Replace `plot(all)` below with your dygraph code.
 
 ```{r}
 # loads dygraph library
