@@ -7,7 +7,6 @@
 # 2. Add an action button to the sidebar
 # 3. Insert a rendered plot into the main panel
 # 4. Write a server function that re-renders a histogram each time the action button is pressed
-#     + Note: the value of an action button increases by one (i.e., it changes) each time it is pressed.
 # 5. Ensure that the function saves the plot as an element of `output`
 # 6. Assemble the components togther with `shinyApp()`
 # 7. Run the code in the console window to verify that it works.

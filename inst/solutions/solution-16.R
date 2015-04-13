@@ -1,5 +1,10 @@
 # Solution 16
 
+library(shiny)
+library(dygraphs)
+library(forecast)
+library(reportsWS)
+
 shiny_arima <- function(ts) {
   stopifnot(is.ts(ts))
 
@@ -9,8 +14,8 @@ shiny_arima <- function(ts) {
     })
     resids <- reactive(mod()$residuals)
 
-    observe({
-      if (input$stop > 0) stopApp(mod())
+    observeEvent(input$stop, {
+      stopApp(mod())
     })
 
     output$model <- renderText({

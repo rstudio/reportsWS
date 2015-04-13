@@ -5,7 +5,7 @@ Version: 0.1
 Date: 2015-02-24
 Author: Garrett Grolemund
 Maintainer: Garrett Grolemund <garrett@rstudio.com>
-Description: Data sets, functions, and study guides (as R Markdown templates) for the
+Description: Data sets, functions, and exercises for the
     Interactive Reporting with R Markdown and Shiny workshop designed by
     RStudio, Inc.
 License: CC0

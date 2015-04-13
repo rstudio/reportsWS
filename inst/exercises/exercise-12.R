@@ -22,20 +22,27 @@
 
 library(shiny)
 
-serv <- function(input, output) {
+server <- function(input, output) {
+  
+  rv <- reactiveValues(
+    norm = rnorm(500), 
+    unif = runif(500),
+    chisq = rchisq(500, 2))
+  
+  observeEvent(input$renorm, { rv$norm <- rnorm(500) })
+  observeEvent(input$reunif, { rv$unif <- runif(500) })
+  observeEvent(input$rechisq, { rv$chisq <- rchisq(500, 2) })
+  
   output$norm <- renderPlot({
-    input$renorm
-    hist(rnorm(500), breaks = 30, col = "grey", border = "white",
+    hist(rv$norm, breaks = 30, col = "grey", border = "white",
       main = "500 random draws from a standard normal distribution")
   })
   output$unif <- renderPlot({
-    input$reunif
-    hist(runif(500), breaks = 30, col = "grey", border = "white",
+    hist(rv$unif, breaks = 30, col = "grey", border = "white",
       main = "500 random draws from a standard uniform distribution")
   })
   output$chisq <- renderPlot({
-    input$rechisq
-    hist(rchisq(500, 2), breaks = 30, col = "grey", border = "white",
+    hist(rv$chisq, breaks = 30, col = "grey", border = "white",
        main = "500 random draws from a Chi Square distribution with two degree of freedom")
   })
 }
@@ -67,4 +74,4 @@ ui <- fluidPage(
   )
 )
 
-shinyApp(server = serv, ui = ui)
+shinyApp(server = server, ui = ui)

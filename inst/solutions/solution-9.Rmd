@@ -4,7 +4,7 @@ output: html_document
 runtime: shiny
 ---
 
-`isolate()` provides a useful way to delay reactions when combined with an `actionButton()`. 
+`eventReactive()` provides a useful way to delay reactions when combined with an `actionButton()`.
 
 ```{r echo=FALSE}
 selectInput("iriscol", label = "Select a variable", choices = names(iris))
@@ -14,11 +14,10 @@ selectInput("iriscol", label = "Select a variable", choices = names(iris))
 actionButton("go", "Go!")
 ```
 
-
 ```{r echo=FALSE}
+data <- eventReactive(input$go, { iris[[input$iriscol]] })
+
 renderPlot({
-  input$go
-  hist(iris[[isolate(input$iriscol)]], probability = TRUE, 
-       xlab = isolate(input$iriscol))
+  hist(data(), probability = TRUE)
 })
 ```

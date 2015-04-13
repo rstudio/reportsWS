@@ -11,6 +11,11 @@
 #    when the user clicks the action button
 # 5. wrap shinyApp() with runApp()
 
+library(shiny)
+library(dygraphs)
+library(forecast)
+library(reportsWS)
+
 server <- function(input, output) {
 
   ts <- ts(subset(babynames::babynames,

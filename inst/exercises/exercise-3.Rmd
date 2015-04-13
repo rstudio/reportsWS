@@ -11,62 +11,65 @@ For each knitr code chunk option below
 
 ***
 
-`eval = FALSE` 
+### eval
 
-```{r}
+```{r eval = FALSE}
 colMeans(cars)
 ```
 Description:
 
 ***
 
-`results = 'hide'` 
+### results
 
-```{r}
+```{r results = 'hide'}
 carmeans <- colMeans(cars)
 1 + 1
 ```
 
 ```{r}
 # Hint: this code would return FALSE if you 
-# added `eval = FALSE` to the chunk above
+# had used eval = FALSE instead of results='hide' 
+# in the chunk above
 exists("carmeans")
 ```
 Description:
 
 ***
 
-`echo = FALSE`
+###  echo
 
-```{r}
+```{r echo = FALSE}
 plot(cars)
 ```
 Description:
 
 ***
 
-`fig.width = 5, fig.height = 4`  
+### fig.width and fig.height
+
 When adding multiple arguments to a code chunk, separate the arguments by a comma.
 
-```{r}
+```{r fig.width = 5, fig.height = 4}
 plot(cars)
 ```
 Description:
 
 ***
 
-`message = FALSE`   
+### message   
 
-```{r}
-# libraries like to print messages
+```{r message = FALSE}
+# packages like to print messages when they load
 library(forecast)
 ```
 Description:
 
 ***
 
-`warning = FALSE`
-```{r}
+### warning
+
+```{r warning = FALSE}
 warning("This function returns a warning!")
 ```
 Description:

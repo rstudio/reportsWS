@@ -15,8 +15,8 @@ Turn this file into an interactive document with Shiny components. To do this:
         + do you need to wrap the code that calls it in one of 
             + `reactive()`
             + `render*()`
-            + `observe()`
-            + `isolate()`
+            + `observeEvent()`
+            + `eventReactive()`
         + does that change how you need to refer to the output of the code?
 5. Use `renderDygraph` from the dygraphs package to render your dygraph plot
 6. Re-render the document frequently as you work to catch errors early.

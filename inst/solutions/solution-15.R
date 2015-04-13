@@ -14,7 +14,7 @@
 
 
 myShinyFun <- function(vec) {
-  serv <- function(input, output) {
+  server <- function(input, output) {
     output$hist <- renderPlot({
       hist(vec, breaks = input$n_breaks,
         probability = TRUE, xlab = "Duration (minutes)", 
@@ -30,5 +30,5 @@ myShinyFun <- function(vec) {
       mainPanel(plotOutput("hist"))
     )
   )
-  shinyApp(server = serv, ui = ui)
+  shinyApp(server = server, ui = ui)
 }

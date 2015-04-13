@@ -14,10 +14,16 @@
 
 library(shiny)
 
-serv <- function(input, output) {
+server <- function(input, output) {
+  
+  rv <- reactiveValues(data = rnorm(500))
+  
+  observeEvent(input$click, { 
+    rv$data <- rnorm(500) 
+  })
+  
   output$hist <- renderPlot({
-    input$click
-    hist(rnorm(500), breaks = 30, probability = TRUE, 
+    hist(rv$data, breaks = 30, probability = TRUE, 
        main = "500 random draws from a standard normal distribution")
   })
 }
@@ -29,5 +35,5 @@ ui <- fluidPage(
   )
 )
 
-shinyApp(server = serv, ui = ui)
+shinyApp(server = server, ui = ui)
 
