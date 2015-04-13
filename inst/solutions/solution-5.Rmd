@@ -20,7 +20,9 @@ mod <- auto.arima(nbirths)
 pred <- forecast(mod, h = 12) # 12 for 2025
 ```
 
-Since 1880, `r sum(nbirths, na.rm = TRUE)` children have been named **`r name`**. The graph below breaks this number down by year showing the number of children named `r name` as a time series. 
+Since 1880, `r sum(nbirths, na.rm = TRUE)` children have been named **`r name`**. The graph below breaks this number down by year showing the number of children named `r name` as a time series.  
+
+
 
 ```{r echo = FALSE, warning = FALSE}
 # Make plot
@@ -29,9 +31,11 @@ all <- bind_as_xts(nbirths, pred)
 plot(all, main = title)
 ```
 
+
+
 We modeled this time series with an `r trim_whitespace(pred$method)` model to predict the number of children that will be given the name `r name` in 2025.
 
-```{r}
+```{r echo = FALSE}
 data.frame(
   method = trim_whitespace(pred$method), 
   predicted_2025 = round(xts::last(pred$mean)))

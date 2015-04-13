@@ -11,8 +11,8 @@ library(forecast)
 library(dygraphs)
 
 # Select name and gender
-name <- "Gillian"    # Always capitalize
-sex <- "F"           # or "M"
+name <- "Garrett"    # Always capitalize
+sex <- "M"           # or "M"
 names <- get_babyname(name, sex)
 
 # Create time series and forecast
