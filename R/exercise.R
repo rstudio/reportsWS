@@ -25,7 +25,10 @@ exercise <- function(number = 1) {
     "13" = "exercise-13.R",
     "14" = "exercise-14.Rmd",
     "15" = "exercise-15.R",
-    "16" = "exercise-16.R"
+    "16" = "exercise-16.R",
+    "17" = "exercise-17.Rmd",
+    "18" = "exercise-18.Rmd",
+    "19" = "exercise-19.R"
     )
 
   path <- system.file("exercises", filename, package = "reportsWS")

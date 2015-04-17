@@ -1,0 +1,17 @@
+---
+title: "Solution 17"
+runtime: shiny
+---
+```{r echo=FALSE}
+numericInput(inputId = "num", label = 
+  "Choose a number", value=25, min=1, max=100)
+
+sliderInput(inputId = "nbins", label = 
+  "Select number of bins", value=10, min=1, max=100)
+
+data <- reactive({ rnorm(input$num) })
+
+renderPlot({ 
+  hist(data(), breaks = input$nbins)
+})
+```

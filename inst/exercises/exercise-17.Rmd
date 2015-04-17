@@ -1,0 +1,12 @@
+---
+title: "Exercise 17"
+runtime: shiny
+---
+```{r echo=FALSE}
+numericInput(inputId = "num", label = 
+  "Choose a number", value=25, min=1, max=100)
+
+data <- reactive({ rnorm(input$num) })
+
+renderPlot({ hist(data()) })
+```

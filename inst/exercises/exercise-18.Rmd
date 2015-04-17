@@ -1,0 +1,19 @@
+---
+title: "Exercise 18"
+runtime: shiny
+---
+
+```{r echo=FALSE}
+library(reportsWS)
+
+textInput(inputId = "name", 
+  label = "Type a name", value = "Garrett")
+
+bnames <- reactive({
+  get_babyname(input$name, "M")
+})
+
+renderPlot({
+  plot(bnames()$year, bnames()$n, type = "l")
+})
+```

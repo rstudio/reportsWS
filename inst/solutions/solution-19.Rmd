@@ -1,0 +1,26 @@
+---
+title: Fuel Efficiency
+---
+
+```{r echo=FALSE, message=FALSE}
+library(DT)
+
+x <- "disp"
+y <- "mpg"
+
+mod <- lm(mpg ~ disp, data = mtcars)
+
+```
+The graph below displays the relationship between `r y` and `r x` in a data set of `r nrow(mtcars)` observations.
+
+```{r}
+plot(mtcars[[x]], mtcars[[y]], xlab = x, ylab = y)
+```
+
+Based on a linear model, we predict that the expected value of `r y` will increase by `r coef(mod)[[2]]` units for each one unit increase in `r x`.
+
+The raw data is available to explore here:
+
+```{r echo = FALSE}
+datatable(mtcars)
+```

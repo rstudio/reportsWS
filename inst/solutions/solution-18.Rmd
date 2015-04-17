@@ -1,0 +1,19 @@
+---
+title: "Solution 18"
+runtime: shiny
+---
+
+```{r echo=FALSE}
+library(reportsWS)
+textInput(inputId = "name", 
+  label = "Type a name", value = "Garrett")
+actionButton("go", "Go")
+
+bnames <- eventReactive(input$go, {
+  get_babyname(input$name, "M")
+})
+
+renderPlot({
+  plot(bnames()$year, bnames()$n, type = "l")
+})
+```

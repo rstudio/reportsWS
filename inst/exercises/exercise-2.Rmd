@@ -22,7 +22,7 @@ A sixth level header
 
 A block quote  
 
-A code block  
+A plain code block  
 
 bold text  
 italic text  
@@ -35,8 +35,7 @@ An equation block (below)
 E = mc^{2}  
 
 A hyperlink (to rmarkdown.rstudio.com)  
-An image (like orb.png)  
-A horizontal rule (below)  
+A horizontal rule (put one below)  
 
 An unordered list:  
 Item 1  

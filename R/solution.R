@@ -26,7 +26,10 @@ solution <- function(number = 1) {
     "13" = "solution-13.R",
     "14" = "solution-14.Rmd",
     "15" = "solution-15.R",
-    "16" = "solution-16.R"
+    "16" = "solution-16.R",
+    "17" = "solution-17.Rmd",
+    "18" = "solution-18.Rmd",
+    "19" = "solution-19.Rmd"
     )
 
   path <- system.file("solutions", filename, package = "reportsWS")
