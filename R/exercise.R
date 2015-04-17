@@ -7,7 +7,7 @@
 #'
 #' @export
 exercise <- function(number = 1) {
-  if (!(number %in% 1:16)) stop("Unrecognized exercise number")
+  if (!(number %in% 1:19)) stop("Unrecognized exercise number")
 
   filename <- switch(number,
     "1" = "exercise-1.R",

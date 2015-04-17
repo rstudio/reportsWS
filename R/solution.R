@@ -8,7 +8,7 @@
 #'@seealso \code{\link{exercise}}
 #' @export
 solution <- function(number = 1) {
-  if (!(number %in% 1:16)) stop("Unrecognized solution number")
+  if (!(number %in% 1:19)) stop("Unrecognized solution number")
 
   filename <- switch(number,
     "1" = "solution-1.R",
