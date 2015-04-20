@@ -13,8 +13,9 @@ For each knitr code chunk option below
 
 ### eval
 
-```{r eval = FALSE}
+```{r eval=FALSE}
 colMeans(cars)
+1 + 1
 ```
 Description:
 
