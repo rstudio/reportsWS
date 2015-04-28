@@ -37,13 +37,13 @@ checkboxGroupInput()
 ```
 
 ```{r eval = FALSE}
-# value - NULL, a Date object, or a string in yyy-mm-dd format. The starting date.
+# value - NULL, a Date object, or a string in yyyy-mm-dd format. The starting date.
 dateInput()
 ```
 
 ```{r eval = FALSE}
-# start - NULL, a Date object, or a string in yyy-mm-dd format. The initial start date.
-# end - NULL, a Date object, or a string in yyy-mm-dd format. The initial end date.
+# start - NULL, a Date object, or a string in yyyy-mm-dd format. The initial start date.
+# end - NULL, a Date object, or a string in yyyy-mm-dd format. The initial end date.
 dateRangeInput()
 ```
 
