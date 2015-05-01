@@ -1,12 +1,5 @@
 library(shiny)
 
-server <- function(input, output) {
-  
-  # render*() functions (save results to ouput$)
-  # observeEvent(), reactive(), eventReactive() functions
-  
-}
-
 ui <- fluidPage(
 
   # *Input() functions
@@ -14,5 +7,12 @@ ui <- fluidPage(
   # layout functions
   
 )
+
+server <- function(input, output) {
+  
+  # render*() functions (save results to ouput$)
+  # observeEvent(), reactive(), eventReactive() functions
+  
+}
 
 shinyApp(server = server, ui = ui)
