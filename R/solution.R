@@ -8,7 +8,7 @@
 #'@seealso \code{\link{exercise}}
 #' @export
 solution <- function(number = 1) {
-  if (!(number %in% 1:20)) stop("Unrecognized solution number")
+  if (!(number %in% 1:21)) stop("Unrecognized solution number")
 
   filename <- switch(number,
     "1" = "solution-1.R",
@@ -30,7 +30,8 @@ solution <- function(number = 1) {
     "17" = "solution-17.Rmd",
     "18" = "solution-18.Rmd",
     "19" = "solution-19.Rmd",
-    "20" = "solution-20.R"
+    "20" = "solution-20.R",
+    "21" = "solution-21.Rmd"
     )
 
   path <- system.file("solutions", filename, package = "reportsWS")

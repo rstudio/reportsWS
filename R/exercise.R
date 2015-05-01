@@ -7,7 +7,7 @@
 #'
 #' @export
 exercise <- function(number = 1) {
-  if (!(number %in% 1:20)) stop("Unrecognized exercise number")
+  if (!(number %in% 1:21)) stop("Unrecognized exercise number")
 
   filename <- switch(number,
     "1" = "exercise-1.R",
@@ -29,7 +29,8 @@ exercise <- function(number = 1) {
     "17" = "exercise-17.Rmd",
     "18" = "exercise-18.Rmd",
     "19" = "exercise-19.R",
-    "20" = "exercise-20.R"
+    "20" = "exercise-20.R",
+    "21" = "exercise-18.Rmd"
     )
 
   path <- system.file("exercises", filename, package = "reportsWS")
