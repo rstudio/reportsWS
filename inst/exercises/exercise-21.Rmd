@@ -1,0 +1,46 @@
+---
+title: "Exercise 21 - Packrat Summary"
+output: html_document
+---
+
+## Packrat is a dependency management system for R.
+
+Packrat creates a separate package library for an RStudio project. Your project files will always use this library (and not your system library), which provides a place to store project specific packages (or package versions).
+
+## Basic functions
+
+```{r eval = FALSE}
+packrat::init()
+```
+Description: 
+
+```{r eval = FALSE}
+packrat::snapshot()
+```
+Description: 
+
+
+```{r eval = FALSE}
+packrat::restore()
+```
+Description: 
+
+```{r eval = FALSE}
+packrat::bundle()
+```
+Description: 
+
+```{r eval = FALSE}
+packrat::unbundle()
+```
+Description: 
+
+```{r eval = FALSE}
+packrat::off()
+```
+Description: 
+
+```{r eval = FALSE}
+packrat::on()
+```
+Description: 

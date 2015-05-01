@@ -28,7 +28,7 @@ A code block
 
 __bold text__ 
 _italic text_  
-`Monospaced text (e.g., code)`  
+`Monospaced text (e.g., inline code)`  
 ~~striked text~~  
 superscripts^2^  
 

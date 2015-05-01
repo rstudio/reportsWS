@@ -1,0 +1,46 @@
+---
+title: "Solution 21 - Packrat Summary"
+output: html_document
+---
+
+## Packrat is a dependency management system for R.
+
+Packrat creates a separate package library for an RStudio project. Your project files will always use this library (and not your system library), which provides a place to store project specific packages (or package versions).
+
+## Basic functions
+
+```{r eval = FALSE}
+packrat::init()
+```
+Description: This will install Packrat, set up a private library to be used for this project, and then place you in packrat mode. While in packrat mode, calls to functions like install.packages and remove.packages will modify the private project library, rather than the user library.
+
+```{r eval = FALSE}
+packrat::snapshot()
+```
+Description: Save the current state of your library.
+
+
+```{r eval = FALSE}
+packrat::restore()
+```
+Description: Restore the library state saved in the most recent snapshot.
+
+```{r eval = FALSE}
+packrat::bundle()
+```
+Description: Bundle a packrat project, for easy sharing.
+
+```{r eval = FALSE}
+packrat::unbundle()
+```
+Description: Unbundle a packrat project, generating a project directory with libraries restored.
+
+```{r eval = FALSE}
+packrat::off()
+```
+Description: Toggle packrat mode off to install and use packages in the system library.
+
+```{r eval = FALSE}
+packrat::on()
+```
+Description: Toggle packrat mode on to install and use packages in the project library.

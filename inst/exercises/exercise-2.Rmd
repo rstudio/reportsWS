@@ -26,7 +26,7 @@ A plain code block
 
 bold text  
 italic text  
-Monospaced text (e.g., code)  
+Monospaced text (e.g., inline code)  
 striked text  
 superscripts2  
 
@@ -38,24 +38,21 @@ A hyperlink (to rmarkdown.rstudio.com)
 A horizontal rule (put one below)  
 
 An unordered list:  
+
 Item 1  
 Item 2  
 sub-item 1  
 sub-item 2  
 
 An ordered list:  
+
 Item 1  
 Item 2  
 sub-item 1  
 sub-item 2  
 
 A table:  
+
 Header 1 Header 2  
 Cell 1 Cell 2  
 Cell 3 Cell 4  
-
-***
-  
-If you finished early (congratulations!), write a short description of yourself below. Use a header, some bold text, some italic text, and three bullet points.
-
-***

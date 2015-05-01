@@ -14,7 +14,8 @@ For each knitr code chunk option below
 `eval = FALSE` 
 
 ```{r eval = FALSE}
-colMeans(cars)
+carmeans1 <- colMeans(cars)
+1 + 1
 ```
 Description: `eval = FALSE` does not run the code. As a result, it does not display the results.
 
@@ -23,14 +24,16 @@ Description: `eval = FALSE` does not run the code. As a result, it does not disp
 `results = 'hide'` 
 
 ```{r results = 'hide'}
-carmeans <- colMeans(cars)
+carmeans2 <- colMeans(cars)
 1 + 1
 ```
 
 ```{r}
-# Hint: this code would return FALSE if you 
-# added `eval = FALSE` to the chunk above
-exists("carmeans")
+# Hint: compare the difference between eval and results
+# exists() states whether an object exists 
+# with the given name
+exists("carmeans1") # "created" with eval=FALSE
+exists("carmeans2") # "created" with results='hide'
 ```
 Description: `results = 'hide'` runs the code, but does not display the results. This is convenient if you would like to use the results later in a new code chunk.
 
