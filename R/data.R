@@ -45,3 +45,16 @@
 #' @source \url{http://www.who.int/tb/country/data/download/en/}
 #'
 "cases"
+
+
+#' Names of musicians
+#'
+#' A simple data set of musicians and the instruments they played.
+#'
+"artists"
+
+#' Names of songs
+#'
+#' A simple list of pop songs and their authors
+#'
+"songs"
