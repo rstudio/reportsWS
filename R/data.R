@@ -58,3 +58,32 @@
 #' A simple list of pop songs and their authors
 #'
 "songs"
+
+
+#' Baby names.
+#'
+#' Full baby name data provided by the SSA. This includes all names with at
+#' least 5 uses. This data set is a reformatted version of the \code{babynames} 
+#' data set in the \code{babynames} package.
+#'
+#' @format A data frame with four variables: \code{year}, \code{sex},
+#'   \code{name}, and \code{prop}.
+"bnames"
+
+#' Births
+#'
+#' Live births data from census.gov.
+#'
+#' @format A data frame:
+#' \describe{
+#' \item{year}{Year}
+#' \item{sex}{Sex}
+#' \item{births}{Number of live births, rounded to nearest 1000}}
+"births"
+
+#' bnames2
+#' 
+#' A subset of the \link{\code{bnames}} data set.
+#' 
+"bnames2"
+
