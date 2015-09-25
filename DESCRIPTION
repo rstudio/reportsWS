@@ -11,9 +11,5 @@ Description: Data sets, functions, and exercises for the
 License: CC0
 LazyData: TRUE
 Imports:
-  shiny,
-  knitr,
   babynames,
-  forecast,
-  xts,
-  dygraphs
+  xts
