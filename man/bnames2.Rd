@@ -110,7 +110,7 @@
 bnames2
 }
 \description{
-A subset of the \link{\code{bnames}} data set.
+A subset of the \code{bnames} data set.
 }
 \keyword{datasets}
 
